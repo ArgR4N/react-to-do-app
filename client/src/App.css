@@ -1,0 +1,275 @@
+
+/*Note list container*/
+.noteListContainerOff{
+    min-width: 450px;
+    height: 100vh;
+    background-color: #333;
+    padding: 10px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    transition: .5s;
+    text-align: center;
+    margin-left: -450px;
+}
+.noteListContainerOn{
+  min-width: 450px;
+  height: 100vh;
+  background-color: #333;
+  padding: 10px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  transition: .5s;
+  text-align: center;
+}
+.noteListContainerOn .card{
+  align-items: center;
+}
+/*Note*/
+.noteTitle{
+  width:200px;
+  background-color: transparent;
+  border: none;
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  margin-top:34px;
+  text-align:center;
+}
+/*Add note btn*/
+.addNoteBtn{
+    margin-left: 5px;
+    margin-top: -13px;
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    transition: 2s;
+    border: none;
+    background-color: transparent;
+    font-size: 50px;
+    color: rgb(0, 255, 0);
+    transition: .1s;
+}
+.addNoteBtn:hover {
+color: rgb(0, 133, 0);
+}
+.addNoteBtn:active{
+  transform: scale(1.1);
+  color: rgb(0, 133, 0);
+}
+.addNoteBtn i{
+  margin-left: -2px;
+}
+/*Side Bar btn*/
+.sideBarBtn{
+  width: 25px;
+  height: 100vh;
+  transition: 2s;
+  border: none;
+  background-color: transparent;
+  font-size: 25px;
+}
+.sideBarBtn i{
+  margin-left: -2px;
+}
+
+/*NoteForm*/
+.noteFormContainerOff{
+  padding: 5px;
+  margin-left: 10px;
+  overflow-y: auto;  
+  overflow-x: hidden;
+  height: 100vh;
+  transition: .5s;
+  width: 0;
+  min-width: 0;
+  opacity: 0;
+  visibility: hidden;
+  margin-left: 0;
+}
+
+
+.noteFormContainerOn{
+  padding: 5px;
+  margin-left: 10px;
+  overflow-y: auto;  
+  overflow-x: hidden;
+  height: 100vh;
+  transition: .5s;
+  width: 300px;
+  min-width: 300px;
+  background-color: #fff;
+}
+
+/*AddAcivityBtn and DeleteAcivityBtn */
+.addActivityBtn{
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.addActivityBtn i{
+
+  font-size: 35px;
+  color: rgb(0, 255, 0);
+}
+.addActivityBtn i:hover{
+
+  cursor: pointer;
+  color: rgb(0, 133, 0);
+}
+.addActivityBtnContainer i{
+  font-size: 25px;
+ 
+}
+
+.addActivityBtnContainer i:hover{
+  cursor: pointer;
+  filter: sepia(50%);
+}
+.addActivityBtnContainer .fa-check-square{
+  color: rgb(0, 255, 0);
+  
+}
+.fa-minus-square{
+  color: red;
+}
+.deleteActivityBtn{
+  font-size: 25px;
+  color: red;
+}
+
+.deleteActivityBtn:hover{
+  cursor: pointer;
+  filter: sepia(50%);
+}
+
+
+
+/*Scroll bar*/
+::-webkit-scrollbar {
+  width:5px;
+  background-color: #333;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  width:5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  height: 10px;
+  background: grey;
+ 
+}
+/*Scroll bar*/
+.mainNoteWhenSmall{
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+/*Responsive*/
+@media (max-width:1050px){
+  .noteListContainerOff{
+    min-width: 350px;
+    margin-left: -350px;
+}
+.noteListContainerOn{
+  min-width: 350px;
+}
+
+.noteFormContainerOff{
+  margin-left: -350px;
+  min-width: 350px;
+  position: absolute;
+  transition: 1s;
+  background-color: #fff;
+  opacity: 1;
+}
+
+.noteFormContainerOn{
+  min-width: 350px;
+  margin-left: 0px;
+  position: absolute;
+  transition: .8s;
+  background-color: #fff;
+}
+
+
+}
+
+@media (max-width:700px){
+/*NoteForm*/
+body{
+  overflow-x: hidden;
+}
+
+.mainNoteWhenSmall{
+  display: none;
+}
+
+.noteFormContainerOff{
+  min-width: 90vw;
+  margin-left: -90vw;
+  position: absolute;
+  transition: 1s;
+  background-color: #fff;
+  opacity: 1;
+}
+
+.noteFormContainerOn{
+  min-width: 90vw;
+  margin-left: 0px;
+  position: absolute;
+  transition: .8s;
+  background-color: #fff;
+}
+
+
+/*Note list container*/
+.noteListContainerOff{
+  min-width: 90vw;
+  margin-left: -90vw;
+  transition: .8s;  
+}
+.noteListContainerOn{
+  margin:0;
+  min-width: 90vw;
+  height: 100vh;
+  padding: 0;
+  transition: .8s;
+}
+
+.addNoteBtn,  .sideBarBtn{
+  margin: 0cm;
+  width: 10vw;
+  font-size: 50px;
+}
+.addNoteBtn{
+  font-size: 40px;
+}
+.addNoteBtn:active{
+  transform: none;
+}
+
+.btn-danger{
+  visibility: hidden;
+}
+
+}
+
+@media (max-width:470px){
+
+
+  
+  .sideBarBtn{
+    font-size: 30px;
+  }
+  .addNoteBtn{
+    font-size: 25px;
+  }
+  
+}
+
