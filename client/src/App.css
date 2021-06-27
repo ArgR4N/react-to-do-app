@@ -262,14 +262,54 @@ body{
 
 @media (max-width:470px){
 
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  #root{
+    overflow: hidden;
 
+  }
+
+  .noteFormContainerOff{
+    min-width: 80vw;
+    margin-left: -80vw;
+    position: absolute;
+    transition: .8s;
+    background-color: #fff;
+    opacity: 1;
+  }
   
-  .sideBarBtn{
-    font-size: 30px;
+  .noteFormContainerOn{
+    min-width: 80vw;
+    margin-left: 0px;
+    position: absolute;
+    transition: .8s;
+    background-color: #fff;
   }
+  
+  
+  /*Note list container*/
+  .noteListContainerOff{
+    min-width: 80vw;
+    margin-left: -80vw;
+    transition: .8s;  
+  }
+  .noteListContainerOn{
+    margin:0;
+    min-width: 80vw;
+    height: 100vh;
+    padding: 0;
+    transition: .8s;
+  }
+  .addNoteBtn,  .sideBarBtn{
+    width: 20vw;
+  }
+
   .addNoteBtn{
-    font-size: 25px;
+    font-size: 60px;
   }
+
   
 }
 
