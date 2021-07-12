@@ -1,26 +1,30 @@
 
 
-const MainNote = ( {mainContent , setMainContent} )=>{
-
-
-
+const MainNote = ( {mainContent , setMainContent, sideBarOn} )=>{
     return (
-    <div   className='overflow-hidden d-flex flex-column justify-content-center align-items-center'>
-        {!mainContent ? <h2>Any Note Selected</h2>  :
-        <main className='w-100 d-flex flex-column justify-content-center align-items-center'>
-            <h3  className=" card overflow-hidden w-75" style={{border:'none'}} > {mainContent[1]} </h3>
-            <p  className=' card w-75 overflow-hidden '  style={{border:'none'}}> {mainContent[0]} </p>
-            <ul className=" w-75 list-group"> {typeof(mainContent[2]) === typeof([ ]) ? mainContent[2].map(activity=>(
-                <li  className="overflow-auto list-group-item d-flex flex-row align-items justify-content-between"> {activity}
-                    <i className="mx-1 deleteActivityBtn fa fa-minus-square "/>
-                </li>
-            )) : mainContent[2] } 
-            </ul>
+    <div className={sideBarOn ? 'overflow-hidden w-100 mainNoteOff' : 'overflow-hidden w-100 mainNoteOn'}>
+        {!mainContent 
+        ? <h2 className='anyGroup'>Any Group Selected</h2>  
+        :
+        <main className='mainNote'>
+            <h3 className="card overflow-hidden w-75" >
+                {mainContent[1]} 
+            </h3>
+            <div className='mainNoteContent'>
+                <ul className=" mainNoteContentList list-group"> 
+                {mainContent[2].map(activity=>(
+                    <li  className="list-group-item "> 
+                        <p className=' activity'>{activity}</p>
+                    </li>
+                ))} 
+                </ul>
+            </div>
+            <button onClick={() => setMainContent(false)} style={!mainContent ? {display:"none"} : {}} className='mainBtn btn btn-danger' >
+            Close Group
+            </button>
         </main>
         }
-        <button onClick={() => setMainContent(false)} style={!mainContent ? {display:"none"} : {}} className='w-25 position-absolute bottom-0 my-3 btn btn-danger' >
-        Close Note
-        </button>
+
     </div>
 )}
 

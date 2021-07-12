@@ -3,9 +3,10 @@ import Note from './Note';
 
 const NotesList = ({ notes, removeNote, updateNote, setMainContent}) => {
   // render JSX
+//{new Date().getDate() + "/" +  (new Date().getMonth() + 1)}
   return (
     <div   className = " gap-2 p-1 d-flex justify-content-center flex-column align-items-center" >
-      <h2 style={{color:'white', maxWidth:300 + 'px', minWidth:300 + 'px'}}>{new Date().getDate() + "/" +  (new Date().getMonth() + 1)}</h2>
+      <h2 style={{color:'white', maxWidth:300 + 'px', minWidth:300 + 'px'}}>Groups</h2>
 
       {notes.map((note)=>(
           

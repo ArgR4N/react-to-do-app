@@ -15,7 +15,6 @@ router.post('/todolist', (req, res, next) => {
     });
     activitesList.push(newActivity)
   })
-  console.log( activitesList)
   const toDo = new ToDo({
     title: req.body.title,
     text: req.body.text,

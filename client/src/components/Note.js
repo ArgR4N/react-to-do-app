@@ -40,7 +40,6 @@ const handleCardClick = ()=>{
   return (
     <div style={{zIndex:0}} className="note card col-10" key={key}>
       <div className="card-body" onClick={handleCardClick} >
-        <p className='p-1 position-absolute' style={{borderRadius:'5px',backgroundColor:'#333', color:'#fff'}}>{today}</p>
         <h2 className={"noteTitle"} spellCheck={false}
           //edit funtion => disabled={!editable}
           //edit funtion => onChange={(e) => setTitle(e.target.value)}

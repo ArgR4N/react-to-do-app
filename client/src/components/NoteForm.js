@@ -39,23 +39,30 @@ const NoteForm = ({ addNote, addActivity, setAddActivity }) => {
   }
 
   const handleDeleteActivity = (e) =>{
-    console.log(e.target.parentNode.innerHTML)
     let newActivities = [ ]
+    let z = true;
     activities.forEach(i=>{
       if (i !== splitHtml(e.target.parentNode.innerHTML)) {
         newActivities.push(i)
+      }else{
+        if(!z){
+          newActivities.push(i)
+        }else{
+          z = false
+        }
       }
     });
     setActivities(newActivities)
+    console.log(e.target.parentNode.innerHTML)
     
   }
-  let k;
+  let k = 0;
   // render JSX
   return (
     <form  className="noteForm" onSubmit={handleSubmit}  >
       <div className="form-group ">
-        <h2 htmlFor="title">Create Note</h2>
-        <label htmlFor="title">Título</label>
+        <h2 htmlFor="title">Create New Group</h2>
+        <label htmlFor="title">Group Name</label>
         <input
           id="title"
           className="form-control"
@@ -65,7 +72,7 @@ const NoteForm = ({ addNote, addActivity, setAddActivity }) => {
         />
       </div>
       <div className="form-group mb-3">
-        <label htmlFor="text">Texto</label>
+        <label htmlFor="text">Description</label>
         <textarea
           id="text"
           className="form-control"
@@ -78,13 +85,13 @@ const NoteForm = ({ addNote, addActivity, setAddActivity }) => {
 
       <ul className="list-group my-2">
       {activities.map((e)=>(
-          <li key={k++} className="overflow-auto list-group-item d-flex flex-row align-items justify-content-between"> 
-          {e} 
-          <i onClick={(e) => handleDeleteActivity(e)} className="mx-1 deleteActivityBtn fa fa-minus-square "/>
-           </li>
-          
-        )
-        )}
+          <div style={{wordWrap:'break-word'}} className="list-group-item d-flex flex-row align-items justify-content-between">
+            <li key={k++} className="overflow-auto "> 
+            {e} 
+            </li>
+            <i onClick={(e) => handleDeleteActivity(e)} className="mx-1 deleteActivityBtn fa fa-minus-square "/>
+          </div>
+      ))}
 
       </ul>
 

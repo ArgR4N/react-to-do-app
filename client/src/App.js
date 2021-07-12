@@ -127,11 +127,7 @@ TODO:Edits activities in a To Do Note
             className="fa fa-chevron-right"></i>
             </button>
           </div>
-          <div
-          className={sideBarOn ? "d-flex overflow-hidden flex-column justify-content-center w-100" 
-          : "mainNoteWhenSmall"}>
-            <MainNote  mainContent={mainContent} setMainContent={setMainContent} />
-          </div>
+            <MainNote sideBarOn={sideBarOn}  mainContent={mainContent} setMainContent={setMainContent} />
       </main>
     </div>
   );
