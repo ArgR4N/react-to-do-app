@@ -1,6 +1,11 @@
 *{
   margin: 0;
 }
+.mainNoteCreationDate{
+  font-size: 13px;
+  color: grey;
+}
+
 /*Note list container*/
 .noteListContainerOff{
     min-width: 450px;
@@ -126,6 +131,14 @@ color: rgb(0, 133, 0);
 }
 
 /*AddAcivityBtn and DeleteAcivityBtn */
+.addActivityBtnContainer{
+  border: none;
+  width: 30px;
+  align-items: center;
+  display: flex;
+  background-color: transparent;
+  justify-content: center;
+}
 .addActivityBtn{
   width: 40px;
   height: 40px;
@@ -145,7 +158,6 @@ color: rgb(0, 133, 0);
 }
 .addActivityBtnContainer i{
   font-size: 25px;
- 
 }
 
 .addActivityBtnContainer i:hover{
@@ -202,13 +214,33 @@ color: rgb(0, 133, 0);
 
 
 
+/*Activities*/
+.activityBtnContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-
+.activityContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 .activity{
   display: flex;
   align-items: center;
   word-wrap:break-word;
   margin:0 ;
+}
+.activityDate{
+  font-size: 13px;
+  color: grey;
+  margin: 0;
+}
+.activityText{
+  display: flex;
+  flex-direction: column;
+  margin: 0;
 }
 
 /*Cuando no hay nada seleccionado*/

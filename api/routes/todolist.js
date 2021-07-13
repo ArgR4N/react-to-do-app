@@ -17,7 +17,6 @@ router.post('/todolist', (req, res, next) => {
   })
   const toDo = new ToDo({
     title: req.body.title,
-    text: req.body.text,
     activities: activitesList
   });
   toDo.save((err, toDo) =>{
@@ -28,14 +27,13 @@ router.post('/todolist', (req, res, next) => {
 // GET /notes
 router.get('/todolist', (req, res, next) => {
     ToDo.find()                  // todos los docs de notes
-      .select('_id title text activities createdAt')  // como SELECT en SQL
+      .select('_id title activities createdAt')  // como SELECT en SQL
       .sort('-createdAt')        // ordena por modificacion descendente
       .exec((err, toDoList) => {
         if (err) return next(err);
         // modifico un poco el resultado antes de mandarlo
         toDoList = toDoList.map(toDo => ({
           title: toDo.title,
-          text: toDo.text,
           activities: toDo.activities,
           createdAt: toDo.createdAt,
           _id: toDo._id
@@ -50,7 +48,7 @@ router.get('/todolist', (req, res, next) => {
 // GET /notes/id
 router.get('/todolist/:id', (req, res, next) => {
     Note.findById(req.params.id)
-      .select('_id title text createdAt ')  // todo menos __v
+      .select('_id title createdAt ')  // todo menos __v
       .exec((err, note) => {
         if (err) return next(err);
         if (!note) return res.status(404).json({ msg: 'Not found' });
@@ -64,7 +62,6 @@ router.get('/todolist/:id', (req, res, next) => {
 router.put('/todolist/:id', (req, res, next) => {
     const toDo = {
       title: req.body.title,
-      text: req.body.text,
       createdAt: Date.now()
     };
     const options = {

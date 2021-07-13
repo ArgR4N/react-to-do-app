@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-const Note = ({ createdAt, activities, id, initialTitle, initialText, removeNote, updateNote, updatedAt, setMainContent, key}) => {
+const Note = ({ setEditing, createdAt, activities, id, initialTitle, initialText, removeNote, updateNote, updatedAt, setMainContent, key}) => {
 
   // note title state
   const [title, setTitle] = useState(initialTitle);
@@ -19,7 +19,7 @@ const Note = ({ createdAt, activities, id, initialTitle, initialText, removeNote
 */
 
 //TODO: limit date system 
-let today = (new Date(createdAt).getDate() + 1)+ "/" +  (new Date(createdAt).getMonth()+ 1)  
+//let today = (new Date(createdAt).getDate() + 1)+ "/" +  (new Date(createdAt).getMonth()+ 1)  
 
 //Acitvities list for the render
 let activitiesList = []
@@ -33,7 +33,8 @@ if (activities) {
   }) 
 }
 const handleCardClick = ()=>{
-  setMainContent([text, title, activitiesList])
+  setMainContent([createdAt, title, activitiesList])
+  setEditing(true)
 };
 
   // render 

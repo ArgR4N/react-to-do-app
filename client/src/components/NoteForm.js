@@ -56,6 +56,16 @@ const NoteForm = ({ addNote, addActivity, setAddActivity }) => {
     console.log(e.target.parentNode.innerHTML)
     
   }
+  const formatDate =(date)=>{
+    let todayArray = date.split('/')
+    for (let i = todayArray.length; i > 3; i--){
+      console.log(todayArray[i])
+    }
+    let today = '2021-07-13'
+    return today
+  }
+
+  let today = formatDate(new Date().toLocaleDateString("es-AR"))
   let k = 0;
   // render JSX
   return (
@@ -71,17 +81,6 @@ const NoteForm = ({ addNote, addActivity, setAddActivity }) => {
           onChange={e => setTitle(e.target.value)}
         />
       </div>
-      <div className="form-group mb-3">
-        <label htmlFor="text">Description</label>
-        <textarea
-          id="text"
-          className="form-control"
-          value={text}
-          rows="4"
-          onChange={e => setText(e.target.value)}
-        >
-        </textarea>
-      </div>
 
       <ul className="list-group my-2">
       {activities.map((e)=>(
@@ -89,6 +88,10 @@ const NoteForm = ({ addNote, addActivity, setAddActivity }) => {
             <li key={k++} className="overflow-auto "> 
             {e} 
             </li>
+            <input type="date" id="start" name="trip-start"
+             value={today}
+             min="2005-03-15" max="2021-12-31">
+            </input>
             <i onClick={(e) => handleDeleteActivity(e)} className="mx-1 deleteActivityBtn fa fa-minus-square "/>
           </div>
       ))}
@@ -106,12 +109,12 @@ const NoteForm = ({ addNote, addActivity, setAddActivity }) => {
             value={activity}
             onChange={e => setActivity(e.target.value)}
           />
-      <div style={addActivity ? {} : {display:'none'}} className="addActivityBtnContainer">
+      <button type='button' style={addActivity ? {} : {display:'none'}} className="addActivityBtnContainer">
       <i onClick={checkActivityHandle}  className="fa fa-check-square mx-1"></i>
-      </div >
-      <div style={addActivity ? {} : {display:'none'}} className="addActivityBtnContainer">
+      </button >
+      <button type='button' style={addActivity ? {} : {display:'none'}} className="addActivityBtnContainer">
       <i onClick={resetActivityHandle}  className="fa fa-minus-square mx-1"></i>
-      </div>
+      </button>
        
         
       </div>

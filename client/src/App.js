@@ -10,6 +10,10 @@ import MainNote from './components/MainNote';
 
 
 const App = () => {
+
+  const [editing, setEditing] = useState(true)
+
+
   // useStates for the NoteList and The MainContent
   const [notes, setNotes] = useState([]);
   const [mainContent, setMainContent] = useState(false) 
@@ -107,6 +111,7 @@ TODO:Edits activities in a To Do Note
                   removeNote={removeNote} 
                   updateNote={updateNote} 
                   setMainContent={setMainContent} 
+                  setEditing={setEditing}
                   />  
           </div>
           <div  
@@ -127,7 +132,7 @@ TODO:Edits activities in a To Do Note
             className="fa fa-chevron-right"></i>
             </button>
           </div>
-            <MainNote sideBarOn={sideBarOn}  mainContent={mainContent} setMainContent={setMainContent} />
+            <MainNote setEditing={setEditing} editing={editing} sideBarOn={sideBarOn}  mainContent={mainContent} setMainContent={setMainContent} notes={notes} />
       </main>
     </div>
   );
