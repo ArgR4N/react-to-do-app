@@ -1,11 +1,15 @@
+import { main } from '@popperjs/core';
 import React, { useState, useEffect } from 'react';
 
 
-const MainNote = ( {setEditing, editing, initialTitle, mainContent , setMainContent, sideBarOn} )=>{
-    const [text, setText] = useState(initialTitle)
-
+const MainNote = ( {setEditing, editing, mainContent , setMainContent, sideBarOn} )=>{
+    const [newText, setNewText] = useState(mainContent[1])
     function editingToggle(){
         setEditing(prevState => !prevState)
+        setNewText(mainContent[1])
+    }
+    function handleNewText(){
+        
     }
     return (
     <div className={sideBarOn ? 'overflow-hidden w-100 mainNoteOff' : 'overflow-hidden w-100 mainNoteOn'}>
@@ -17,17 +21,22 @@ const MainNote = ( {setEditing, editing, initialTitle, mainContent , setMainCont
                 <div>
                     <input
                     style={editing ? {display:'none'} : {width:'50%'}}
-                    value={text}
-                    onChange={e => setText(e.target.value)}
+                    value={newText}
+                    onChange={editing ? (e => setNewText(e.value.target)) : null}
                     />
                     <span
                     style={editing ? {} : {display:'none'}}
                     >
                     {mainContent[1]}
                     </span>
-                <button onClick={editingToggle} style={{border:'none', backgroundColor:'transparent',  marginLeft:'15px', width:'30px', height:'30px'}}>
-                <i style={{color:'grey', fontSize:'30px'}} className="fa fa-edit"></i>
-                </button>
+                <div>
+                    <button onClick={editingToggle}>
+                    <i style={{color:'grey'}} className={!editing ? "fa fa-minus-square" : "fa fa-edit"}></i>
+                    </button>
+                    <button style={editing ? {display:'none'} : {}} onClick={handleNewText} >
+                                <i className="fa fa-check-square mx-1"></i>
+                    </button>
+                </div>
                 </div>
                 <h6 className="mainNoteCreationDate">
                 {new Date(mainContent[0]).toLocaleDateString("es-AR")} 
@@ -41,7 +50,7 @@ const MainNote = ( {setEditing, editing, initialTitle, mainContent , setMainCont
                         <div className='activityContainer'>
                         <div className='activityText'>
                             <p className=' activity'>{activity}</p>
-                            <p className=' activityDate' >13/06/2021</p>
+                            <p className=' activityDate' >13/07/2021</p>
                         </div>
                         <div className='activityBtnContainer'>
                             <button  className="addActivityBtnContainer">

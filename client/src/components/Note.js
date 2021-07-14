@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-const Note = ({ setEditing, createdAt, activities, id, initialTitle, initialText, removeNote, updateNote, updatedAt, setMainContent, key}) => {
+const Note = ({setActualText, setEditing, createdAt, activities, id, initialTitle, initialText, removeNote, updateNote, updatedAt, setMainContent, key}) => {
 
   // note title state
   const [title, setTitle] = useState(initialTitle);

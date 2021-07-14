@@ -1,6 +1,12 @@
 *{
   margin: 0;
 }
+
+button{
+  border: none;
+  background-color: transparent;
+}
+
 .mainNoteCreationDate{
   font-size: 13px;
   color: grey;
@@ -291,6 +297,7 @@ color: rgb(0, 133, 0);
 .noteFormContainerOff{
   margin-left: -350px;
   min-width: 350px;
+  max-width: 350px;
   position: absolute;
   transition: .5s;
   background-color: #fff;
@@ -299,7 +306,7 @@ color: rgb(0, 133, 0);
 }
 
 .noteFormContainerOn{
-  min-width: 350px;
+  min-width: 350px;;
   margin-left: 0px;
   position: absolute;
   transition: .5s;
@@ -308,6 +315,10 @@ color: rgb(0, 133, 0);
 
 }
 
+
+.mainNote{
+  max-width: 100%;
+}
 
 }
 
@@ -318,6 +329,7 @@ color: rgb(0, 133, 0);
 /*MainNote*/
 .mainNote{
   max-width: 100vw;
+  padding: 30px 30px 30px 0;
 }
 /*NoteForm*/
 body{
@@ -386,7 +398,7 @@ body{
 }
 
 .mainBtn{
-  width: auto;
+  display: none !important;
 }
 
 }

@@ -23,6 +23,12 @@ const App = () => {
   const [addNoteOn, setAddNoteOn] = useState([true])
   const [addActivity, setAddActivity] = useState(false)
   
+
+  //
+  const[actualText, setActualText] = useState("hola")
+
+
+
   // useEffect hook
   useEffect(() => {
     axios.get('/api/todolist')
@@ -111,6 +117,7 @@ TODO:Edits activities in a To Do Note
                   removeNote={removeNote} 
                   updateNote={updateNote} 
                   setMainContent={setMainContent} 
+                  setActualText={setActualText}
                   setEditing={setEditing}
                   />  
           </div>
@@ -132,7 +139,13 @@ TODO:Edits activities in a To Do Note
             className="fa fa-chevron-right"></i>
             </button>
           </div>
-            <MainNote setEditing={setEditing} editing={editing} sideBarOn={sideBarOn}  mainContent={mainContent} setMainContent={setMainContent} notes={notes} />
+            <MainNote 
+            setEditing={setEditing} 
+            editing={editing} 
+            sideBarOn={sideBarOn}  
+            mainContent={mainContent} 
+            setMainContent={setMainContent} 
+            />
       </main>
     </div>
   );
