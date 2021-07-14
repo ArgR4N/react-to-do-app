@@ -24,7 +24,7 @@ const MainNote = ( {uploadGroup, setEditing, editing, mainContent , setMainConte
     <div className={sideBarOn ? 'overflow-hidden w-100 mainNoteOff' : 'overflow-hidden w-100 mainNoteOn'}>
 <main className='mainNote'>
             <h3 className=" card overflow-hidden w-75" >
-                <div className='d-flex '>
+                <div className='d-flex  flex-wrap overflow-auto'>
                     <input
                     style={editing ? {display:'none'} : {width:'50%'}}
                     value={newText}

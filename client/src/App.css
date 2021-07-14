@@ -205,10 +205,12 @@ color: rgb(0, 133, 0);
   margin: 0 auto;
   padding: 0 3rem;
   max-width: 45vw;
+  word-wrap:break-word;
 }
 
 .mainNote h3{
   display: block;
+  word-wrap:break-word;
   min-width: 100%;
   padding: .5rem;
   margin-top: 35px;
@@ -347,7 +349,9 @@ body{
   overflow-x: hidden;
 }
 
-
+.card h2{
+  padding: 0 1rem;
+}
 .mainNoteOn{
   transition: .5s;
   min-width: 100vw;

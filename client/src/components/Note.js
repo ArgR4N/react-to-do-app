@@ -5,7 +5,6 @@ const Note = ({setActualText, setEditing, createdAt, activities, id, initialTitl
   const [title, setTitle] = useState(initialTitle);
   // note text state
   const [text, setText] = useState(initialText);
-
 /*
   //no se va a editar desde aca
   //const [editable, setEditable] = useState(false);
@@ -47,7 +46,7 @@ const handleCardClick = ()=>{
         >{title}
         </h2>
         <br />
-        <button style={{zIndex:2}} className="btn" onClick={() => {setMainContent(false); removeNote(id);}}>
+        <button style={{zIndex:2}} className="btn" onClick={() => {removeNote(id);}}>
           <i className="text-danger fa fa-trash fa-lg"></i>
         </button>
       </div>

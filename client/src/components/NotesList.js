@@ -1,7 +1,7 @@
 import React from 'react';
 import Note from './Note';
 
-const NotesList = ({setActualText, setEditing, notes, removeNote, updateNote, setMainContent}) => {
+const NotesList = ({setEditing, notes, removeNote, updateNote, setMainContent}) => {
   // render JSX
 
   return (
@@ -22,7 +22,6 @@ const NotesList = ({setActualText, setEditing, notes, removeNote, updateNote, se
               updatedAt={note.createdAt}
               activities={note.activities ? note.activities : null }
               setEditing={setEditing}
-              setActualText={setActualText}
               />
       ))}
 

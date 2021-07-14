@@ -34,8 +34,7 @@ const App = () => {
       .then(res => {
         setNotes(res.data.toDoList);
       });
-    setMainContent()
-  }, []);
+  }, [mainContent]);
 
   // CRUD functions
   // create
@@ -87,7 +86,9 @@ const updateActivities = (id, title, activities) => {
       .then(res => {
         const newNotes = notes.filter(note => note._id !== id);
         setNotes(newNotes);
+        setMainContent(false);
     });
+    
   };
 
   // Handle clock from open the note list bar
