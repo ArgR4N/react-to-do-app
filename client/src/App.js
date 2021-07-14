@@ -25,7 +25,6 @@ const App = () => {
   
 
   //
-  const[actualText, setActualText] = useState("hola")
 
 
 
@@ -35,7 +34,7 @@ const App = () => {
       .then(res => {
         setNotes(res.data.toDoList);
       });
-    
+    setMainContent()
   }, []);
 
   // CRUD functions
@@ -65,23 +64,23 @@ const App = () => {
     
 /*
 TODO:Edits activities in a To Do Note
-    const updateActivities = (id, title, text, activities) => {
-      const updatedNote = {
-        title: title,
-        text: text,
-        activities: activities
-      };
-      axios.put('/api/todolist/' + id, updatedNote)
-        .then(res => {
-          const newNotes = notes.map(note =>
-            note.id === id ? updatedNote : note
-          );
-          setNotes(newNotes);
-        });
-    };
-*/
-  
 
+*/
+  /*
+const updateActivities = (id, title, activities) => {
+  const updatedNote = {
+    title: title,
+    activities: activities
+  };
+  axios.put('/api/todolist/' + id, updatedNote)
+    .then(res => {
+      const newNotes = notes.map(note =>
+        note.id === id ? updatedNote : note
+      );
+      setNotes(newNotes);
+    });
+};
+*/
   // remove
   const removeNote = (id) => {
       axios.delete('/api/todolist/' + id)
@@ -108,6 +107,21 @@ TODO:Edits activities in a To Do Note
       handleNoteListClick()
     }
   }
+
+  //Update group function
+  const uploadGroup = (id, newTitle, newActivities) =>{
+
+    let newGroup={
+      title:newTitle,
+      activities:newActivities
+    }
+    axios.put(`api/todolist/${id}`, newGroup)
+      .then(res=>{
+        setNotes(prevState => prevState.map(group => group._id === id ? newGroup : group))
+        setMainContent([new Date(), newTitle, newActivities, id])
+
+      })
+  }
   return (
     <div>
       <main className="d-flex overflow-hidden flex-row">
@@ -117,7 +131,6 @@ TODO:Edits activities in a To Do Note
                   removeNote={removeNote} 
                   updateNote={updateNote} 
                   setMainContent={setMainContent} 
-                  setActualText={setActualText}
                   setEditing={setEditing}
                   />  
           </div>
@@ -139,13 +152,20 @@ TODO:Edits activities in a To Do Note
             className="fa fa-chevron-right"></i>
             </button>
           </div>
+          {
+            !mainContent 
+            ? 
+            <h2 className={sideBarOn ? 'overflow-hidden w-100 mainNoteOff anyGroup' : 'anyGroup overflow-hidden w-100 mainNoteOn'}>Any Group Selected</h2> 
+            :
             <MainNote 
             setEditing={setEditing} 
             editing={editing} 
             sideBarOn={sideBarOn}  
             mainContent={mainContent} 
             setMainContent={setMainContent} 
+            uploadGroup={uploadGroup}
             />
+          }
       </main>
     </div>
   );

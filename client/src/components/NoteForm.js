@@ -85,10 +85,10 @@ const NoteForm = ({ addNote, addActivity, setAddActivity }) => {
       <ul className="list-group my-2">
       {activities.map((e)=>(
           <div style={{wordWrap:'break-word'}} className="list-group-item d-flex flex-row align-items justify-content-between">
-            <li key={k++} className="overflow-auto "> 
+            <li key={k++} className="newActivity overflow-auto "> 
             {e} 
             </li>
-            <input type="date" id="start" name="trip-start"
+            <input className='dateForm' type="date" id="start" name="trip-start"
              value={today}
              min="2005-03-15" max="2021-12-31">
             </input>

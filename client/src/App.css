@@ -153,7 +153,6 @@ color: rgb(0, 133, 0);
   justify-content: center;
 }
 .addActivityBtn i{
-
   font-size: 35px;
   color: rgb(0, 255, 0);
 }
@@ -186,6 +185,16 @@ color: rgb(0, 133, 0);
   cursor: pointer;
   filter: sepia(50%);
 }
+.newActivity{
+  max-width: 120px;
+}
+/*
+.dateForm{
+  background-color: red !important;
+  padding: 10px;
+  margin: 100px;
+  max-height: 100px !important;
+  }
 
 /* MainNote */
 .mainNote{
@@ -237,6 +246,8 @@ color: rgb(0, 133, 0);
   align-items: center;
   word-wrap:break-word;
   margin:0 ;
+  overflow-x: auto;
+  width: 300px;
 }
 .activityDate{
   font-size: 13px;

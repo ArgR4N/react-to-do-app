@@ -62,13 +62,14 @@ router.get('/todolist/:id', (req, res, next) => {
 router.put('/todolist/:id', (req, res, next) => {
     const toDo = {
       title: req.body.title,
+      activities: req.body.activities,
       createdAt: Date.now()
     };
     const options = {
       new: true,
       omitUndefined: true
     };
-    ToDo.findByIdAndUpdate(req.params.id, note, options).exec((err, toDo) => {
+    ToDo.findByIdAndUpdate(req.params.id, toDo, options).exec((err, toDo) => {
       if (err) return next(err);
       if (!toDo) return res.status(404).json({ msg: 'Not found' });
       res.status(200).json(toDo);

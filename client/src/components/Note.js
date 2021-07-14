@@ -33,7 +33,7 @@ if (activities) {
   }) 
 }
 const handleCardClick = ()=>{
-  setMainContent([createdAt, title, activitiesList])
+  setMainContent([createdAt, title, activitiesList, id])
   setEditing(true)
 };
 

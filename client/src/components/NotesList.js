@@ -3,7 +3,7 @@ import Note from './Note';
 
 const NotesList = ({setActualText, setEditing, notes, removeNote, updateNote, setMainContent}) => {
   // render JSX
-//{new Date().getDate() + "/" +  (new Date().getMonth() + 1)}
+
   return (
     <div   className = " gap-2 p-1 d-flex justify-content-center flex-column align-items-center" >
       <h2 style={{color:'white', maxWidth:300 + 'px', minWidth:300 + 'px'}}>Groups</h2>
@@ -20,7 +20,7 @@ const NotesList = ({setActualText, setEditing, notes, removeNote, updateNote, se
               removeNote={removeNote}
               updateNote={updateNote}
               updatedAt={note.createdAt}
-              activities={note.activities[0] ? note.activities : ""}
+              activities={note.activities ? note.activities : null }
               setEditing={setEditing}
               setActualText={setActualText}
               />

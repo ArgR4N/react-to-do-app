@@ -1,42 +1,49 @@
 import { main } from '@popperjs/core';
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 
 
-const MainNote = ( {setEditing, editing, mainContent , setMainContent, sideBarOn} )=>{
+const MainNote = ( {uploadGroup, setEditing, editing, mainContent , setMainContent, sideBarOn} )=>{
     const [newText, setNewText] = useState(mainContent[1])
+    const [newActivities, setNewActivities] = useState(mainContent[2])  
+    if(newActivities !== mainContent[2]) setNewActivities(mainContent[2])
     function editingToggle(){
         setEditing(prevState => !prevState)
         setNewText(mainContent[1])
     }
-    function handleNewText(){
-        
+
+    function handleUpload(){
+        editingToggle()
+        uploadGroup(mainContent[3], newText, newActivities)
     }
+
+    function handleChange(e){
+        setNewText(e.target.value)
+    }
+
     return (
     <div className={sideBarOn ? 'overflow-hidden w-100 mainNoteOff' : 'overflow-hidden w-100 mainNoteOn'}>
-        {!mainContent 
-        ? <h2 className='anyGroup'>Any Group Selected</h2>  
-        :
-        <main className='mainNote'>
-            <h3 className="card overflow-hidden w-75" >
-                <div>
+<main className='mainNote'>
+            <h3 className=" card overflow-hidden w-75" >
+                <div className='d-flex '>
                     <input
                     style={editing ? {display:'none'} : {width:'50%'}}
                     value={newText}
-                    onChange={editing ? (e => setNewText(e.value.target)) : null}
+                    className='carlitos'
+                    onChange={!editing ? (handleChange) : null}
                     />
                     <span
                     style={editing ? {} : {display:'none'}}
                     >
                     {mainContent[1]}
                     </span>
-                <div>
-                    <button onClick={editingToggle}>
-                    <i style={{color:'grey'}} className={!editing ? "fa fa-minus-square" : "fa fa-edit"}></i>
-                    </button>
-                    <button style={editing ? {display:'none'} : {}} onClick={handleNewText} >
-                                <i className="fa fa-check-square mx-1"></i>
-                    </button>
-                </div>
+                    <div >
+                        <button onClick={editingToggle}>
+                        <i style={editing ? {color:'grey'} : {color:'red'}} className={!editing ? "fa fa-minus-square" : "fa fa-edit"}></i>
+                        </button>
+                        <button onClick={handleUpload} style={editing ? {display:'none'} : {}} >
+                                    <i style={{color:'rgb(0, 255, 0)'}} className="fa fa-check-square mx-1"></i>
+                        </button>
+                    </div>
                 </div>
                 <h6 className="mainNoteCreationDate">
                 {new Date(mainContent[0]).toLocaleDateString("es-AR")} 
@@ -74,8 +81,6 @@ const MainNote = ( {setEditing, editing, mainContent , setMainContent, sideBarOn
             </button>
             
         </main>
-        }
-
     </div>
 )}
 
