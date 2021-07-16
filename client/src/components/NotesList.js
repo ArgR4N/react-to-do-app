@@ -9,7 +9,6 @@ const NotesList = ({setSideBarOn, setAddNoteOn, mainContent, setEditing, notes, 
       <h2 className='groupsTitle' style={{color:'white', maxWidth:300 + 'px', minWidth:300 + 'px'}}>Groups</h2>
 
       {notes.map((note)=>(
-          
               <Note 
               createdAt={note.createdAt}
               setMainContent={setMainContent}
@@ -26,9 +25,10 @@ const NotesList = ({setSideBarOn, setAddNoteOn, mainContent, setEditing, notes, 
               />
       ))}
       {notes.length < 3 || window.screen.width < 700
-      ? <button onClick={()=>setAddNoteOn(prevState => !prevState)}  type="button" class="addFirstGroupBtn ">Add Group</button>
+      ? <button  onClick={()=>setAddNoteOn(prevState => !prevState)}  type="button" class="addFirstGroupBtn ">Add Group</button>
       : null
       }
+
     </div>
   );
 };

@@ -23,11 +23,15 @@ const NoteForm = ({setAddNoteOn, addNote, addActivity, setAddActivity }) => {
   const [formError, setFormError] = useState()
   // handler para el submit
   const handleSubmit = e => {
+
     e.preventDefault();
     if(title === ''){
       setFormError('The group need a name!')
       return null;
     }else{
+      if(window.screen.width < 700) {
+        setAddNoteOn(prevState => !prevState)
+      } 
       addNote({title, activities:activities});
       // blanquear formulario
       setFormError('')
@@ -135,7 +139,8 @@ const NoteForm = ({setAddNoteOn, addNote, addActivity, setAddActivity }) => {
         className="btn btn-primary mt-3"
         type="submit"
         value="Guardar"
-      />
+        
+      /> 
      <input
         style={window.screen.width < 700 ? {} : {display:'none'}}
         className="btn btn-danger mt-3 mx-2"

@@ -276,6 +276,7 @@ color: rgb(0, 133, 0);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 .activity{
   display: flex;
@@ -463,7 +464,6 @@ body{
   position: absolute;
 }
 
-
 }
 
 @media (max-width:500px){
@@ -525,7 +525,7 @@ body{
   }
   .sideBarBtnOpen{
     transform: rotate(-90deg);
-    margin-top: 10px;
+    margin-top: -10px;
   }
   body{
     overflow: hidden;
@@ -534,24 +534,21 @@ body{
   .noteListContainerOff{
     margin-left:0;
     min-width: 100vw;
-    height: 83,5vh;
-    margin-top: 96.5vh;
+    height: 83vh;
+    margin-top: 95.3vh;
     transition: 1s;
     overflow: hidden;
-    border-radius: 150px;
+    border-radius: 100px;
   }
   .noteListContainerOn{
     margin-left:0;
     min-width: 100vw;
-    height: 83,5vh;
+    height: 83vh;
     margin-top: 17vh;
     transition: 1s;
   }
   .groupsTitle{
     transition: 1s;
-  }
-  .noteListContainerOff .groupsTitle{
-    font-size: 18px;
   }
   .noteFormContainerOn, .noteListContainerOff{
     z-index: 50;
