@@ -1,6 +1,8 @@
 // imports
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ReactTooltip from 'react-tooltip';
+
 //import Header from './Header';
 import NotesList from './components/NotesList';
 import NoteForm from './components/NoteForm';
@@ -111,7 +113,6 @@ const updateActivities = (id, title, activities) => {
 
   //Update group function
   const uploadGroup = (id, newTitle, newActivities) =>{
-
     let newGroup={
       title:newTitle,
       activities:newActivities
@@ -133,6 +134,9 @@ const updateActivities = (id, title, activities) => {
                   updateNote={updateNote} 
                   setMainContent={setMainContent} 
                   setEditing={setEditing}
+                  mainContent={mainContent}
+                  setAddNoteOn={setAddNoteOn} 
+                  setSideBarOn={setSideBarOn}
                   />  
           </div>
           <div  
@@ -145,9 +149,13 @@ const updateActivities = (id, title, activities) => {
           </div>
           <div>
             <button onClick={handleAddNoteBtn} type="button" className="addNoteBtn mt-1" 
-            style={addNoteOn ? {} : {color:"red"}}  >
+            style={addNoteOn ? {} : {color:"red"}}
+            data-tip data-for={"a"}  >
             <i  className="fa fa-plus-square" style={addNoteOn ? {transition:'.9s'} : {transition:'.9s', transform:"rotate(45deg)"}}></i>
             </button>
+            <ReactTooltip  id="a"  className="addActivityTooltip p-1" place="right" effect="solid">
+              {addNoteOn ? 'Add Group' : 'Cancel'}
+            </ReactTooltip>
             <button type="button" className="sideBarBtn " onClick={handleNoteListClick} style={{transition:"2s"}}>
             <i style={sideBarOn ? {transition:".8s"}: {transition:".8s", transform:"rotate(180deg)"}} 
             className="fa fa-chevron-right"></i>

@@ -1,72 +1,78 @@
 import React, { useState } from 'react';
 import ReactTooltip from "react-tooltip";
-
+import NewActivity from './NewActivity.js';
 const NoteForm = ({ addNote, addActivity, setAddActivity }) => {
-
+  const formatDate = date =>{
+    let todayArray = date.split('/')
+    let today = [];
+    for (let i = todayArray.length; i > 0 ; i--) {
+      if (todayArray[i-1].split("").length < 2) {
+        today.push(`0${todayArray[i-1]}`)
+      }else{
+        today.push(todayArray[i-1]);
+      }
+    }
+    return today.join('-');
+  }
+  let today = formatDate(new Date().toLocaleDateString("es-AR"))
   // state hooks para el form
   const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
   const [activity, setActivity] = useState(''); 
   const [activities, setActivities] = useState([]);
+  const [dateFor, setDateFor] = useState(today)
+  const [formError, setFormError] = useState()
   // handler para el submit
   const handleSubmit = e => {
     e.preventDefault();
-    addNote({title, text, activities:activities});
-    // blanquear formulario
-    setTitle(''); 
-    setText('');
-    setActivities([ ])
-    setActivity(' ')
+    if(title === ''){
+      setFormError('The group need a name!')
+      return null;
+    }else{
+      addNote({title, activities:activities});
+      // blanquear formulario
+      setFormError('')
+      setTitle(''); 
+      setActivities([ ])
+      setActivity(' ')
+    }
   };
-
+  
   const addActivityHandle = () =>{
     setAddActivity(!addActivity)
   }
   
   const checkActivityHandle = () =>{
-    setActivities([...activities, activity])
-    setActivity('')
-    setAddActivity(!addActivity)
+    
+    if(activity === ''){
+      setFormError('The activity needs information!')
+      return null;
+    }else{
+      setFormError('')
+      setActivities([...activities, activity])
+      setActivity('')
+      setAddActivity(!addActivity)
+    }
+
   }
   
   const resetActivityHandle = () =>{
     setAddActivity(!addActivity)
   };
 
-  const splitHtml = (text) => {
-    let textArray =  text.split("<")
-    return textArray[0]
-  }
+
 
   const handleDeleteActivity = (e) =>{
     let newActivities = [ ]
-    let z = true;
     activities.forEach(i=>{
-      if (i !== splitHtml(e.target.parentNode.innerHTML)) {
+      if (i !== e) {
         newActivities.push(i)
       }else{
-        if(!z){
-          newActivities.push(i)
-        }else{
-          z = false
-        }
+        return null;
       }
     });
     setActivities(newActivities)
-    console.log(e.target.parentNode.innerHTML)
-    
-  }
-  const formatDate =(date)=>{
-    let todayArray = date.split('/')
-    for (let i = todayArray.length; i > 3; i--){
-      console.log(todayArray[i])
-    }
-    let today = '2021-07-13'
-    return today
   }
 
-  let today = formatDate(new Date().toLocaleDateString("es-AR"))
-  let k = 0;
   // render JSX
   return (
     <form  className="noteForm" onSubmit={handleSubmit}  >
@@ -84,16 +90,13 @@ const NoteForm = ({ addNote, addActivity, setAddActivity }) => {
 
       <ul className="list-group my-2">
       {activities.map((e)=>(
-          <div style={{wordWrap:'break-word'}} className="list-group-item d-flex flex-row align-items justify-content-between">
-            <li key={k++} className="newActivity overflow-auto "> 
-            {e} 
-            </li>
-            <input className='dateForm' type="date" id="start" name="trip-start"
-             value={today}
-             min="2005-03-15" max="2021-12-31">
-            </input>
-            <i onClick={(e) => handleDeleteActivity(e)} className="mx-1 deleteActivityBtn fa fa-minus-square "/>
-          </div>
+          <NewActivity
+          dateFor={dateFor}
+          setDateFor={setDateFor}
+          e={e}
+          today={today}
+          handleDeleteActivity={handleDeleteActivity}
+          />
       ))}
 
       </ul>
@@ -109,21 +112,25 @@ const NoteForm = ({ addNote, addActivity, setAddActivity }) => {
             value={activity}
             onChange={e => setActivity(e.target.value)}
           />
-      <button type='button' style={addActivity ? {} : {display:'none'}} className="addActivityBtnContainer">
-      <i onClick={checkActivityHandle}  className="fa fa-check-square mx-1"></i>
+
+      <button  onClick={checkActivityHandle}  type='button' style={addActivity ? {} : {display:'none'}} className="addActivityBtnContainer">
+        <i className="fa fa-check-square mx-1"></i>
       </button >
-      <button type='button' style={addActivity ? {} : {display:'none'}} className="addActivityBtnContainer">
-      <i onClick={resetActivityHandle}  className="fa fa-minus-square mx-1"></i>
+      <button onClick={resetActivityHandle} type='button' style={addActivity ? {} : {display:'none'}} className="addActivityBtnContainer">
+        <i   className="fa fa-minus-square mx-1"></i>
       </button>
-       
+
         
       </div>
-      <div style={addActivity ? {display:'none'} : {}} className="addActivityBtn" >
-      <i onClick={addActivityHandle}   data-tip data-for={"registerTip"} className=" fa fa-plus-square" ></i>
-      </div>
+      <button onClick={addActivityHandle}  type="button" style={addActivity ? {display:'none'} : {}} className="addActivityBtn" >
+        <i  data-tip data-for={"registerTip"} className=" fa fa-plus-square" ></i>
+      </button>
+
       <ReactTooltip id="registerTip"  className="addActivityTooltip p-1" place="right" effect="solid">
         Add Activity
       </ReactTooltip>
+      
+      <h6 style={{textAlign:'center', fontSize:'13px',color:'red', margin:'10px 0 0 0'}}> {formError} </h6>
       <input
         style={{marginBottom:'10px'}}
         className="btn btn-primary mt-3"

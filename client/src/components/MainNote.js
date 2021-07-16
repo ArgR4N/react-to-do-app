@@ -13,7 +13,9 @@ const MainNote = ( {uploadGroup, setEditing, editing, mainContent , setMainConte
 
     function handleUpload(){
         editingToggle()
-        uploadGroup(mainContent[3], newText, newActivities)
+        if (mainContent[1] !== newText || mainContent[2] !== newActivities) {
+            uploadGroup(mainContent[3], newText, newActivities)
+        }
     }
 
     function handleChange(e){
@@ -22,7 +24,7 @@ const MainNote = ( {uploadGroup, setEditing, editing, mainContent , setMainConte
 
     return (
     <div className={sideBarOn ? 'overflow-hidden w-100 mainNoteOff' : 'overflow-hidden w-100 mainNoteOn'}>
-<main className='mainNote'>
+        <main className='mainNote'>
             <h3 className=" card overflow-hidden w-75" >
                 <div className='d-flex  flex-wrap overflow-auto'>
                     <input
@@ -31,17 +33,15 @@ const MainNote = ( {uploadGroup, setEditing, editing, mainContent , setMainConte
                     className='carlitos'
                     onChange={!editing ? (handleChange) : null}
                     />
-                    <span
-                    style={editing ? {} : {display:'none'}}
-                    >
+                    <span style={editing ? {} : {display:'none'}}>
                     {mainContent[1]}
                     </span>
                     <div >
                         <button onClick={editingToggle}>
-                        <i style={editing ? {color:'grey'} : {color:'red'}} className={!editing ? "fa fa-minus-square" : "fa fa-edit"}></i>
+                            <i style={editing ? {color:'grey'} : {color:'red'}} className={!editing ? "fa fa-minus-square" : "fa fa-edit"}></i>
                         </button>
                         <button onClick={handleUpload} style={editing ? {display:'none'} : {}} >
-                                    <i style={{color:'rgb(0, 255, 0)'}} className="fa fa-check-square mx-1"></i>
+                            <i style={{color:'rgb(0, 255, 0)'}} className="fa fa-check-square mx-1"></i>
                         </button>
                     </div>
                 </div>
@@ -52,26 +52,31 @@ const MainNote = ( {uploadGroup, setEditing, editing, mainContent , setMainConte
             <div className='mainNoteContent'>
                 {mainContent[2].length !== 0 ?                 
                 <ul className=" mainNoteContentList list-group"> 
-                {mainContent[2].map(activity=>(
-                    <li  className="list-group-item "> 
-                        <div className='activityContainer'>
-                        <div className='activityText'>
-                            <p className=' activity'>{activity}</p>
-                            <p className=' activityDate' >13/07/2021</p>
-                        </div>
-                        <div className='activityBtnContainer'>
-                            <button  className="addActivityBtnContainer">
-                            <i className="fa fa-check-square mx-1"></i>
-                            </button >
-                            <button className="addActivityBtnContainer">
-                            <i className="fa fa-minus-square mx-1"></i>
-                            </button>
-                        </div>
-                        </div>
-
-                    </li>
-                ))} 
-                </ul> : <h5 style={{textAlign:'center', margin:'0', color:'gray'}}>Any Acvtivity</h5>}
+                    {mainContent[2].map(activity=>(
+                        <li  className="list-group-item "> 
+                            <div className='activityContainer'>
+                                <div className='activityText'>
+                                    <p className=' activity'>{activity}</p>
+                                    <p className=' activityDate' >13/07/2021</p>
+                                </div>
+                                <div className='activityBtnContainer'>
+                                    <button  className="addActivityBtnContainer">
+                                       <i className="fa fa-check-square mx-1"></i>
+                                    </button > 
+                                    <button className="addActivityBtnContainer">
+                                       <i className="fa fa-minus-square mx-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                    ))} 
+                </ul> : 
+                <div className='d-flex justify-content-center align-items-center'>
+                    <h5 style={{textAlign:'center', margin:'0', color:'gray'}}>Any Acvtivity</h5>
+                    <button style={{ alignItems:'center'}} className='addActivityBtn alig-items-center d-flex justify-content-center'>
+                        <i className='fa fa-plus-square'></i>
+                    </button>
+                </div>}
                 
             </div>
             <div>
