@@ -1,7 +1,7 @@
 import React from 'react';
 import Note from './Note';
 
-const NotesList = ({setEditing, notes, removeNote, updateNote, setMainContent}) => {
+const NotesList = ({setSideBarOn, setAddNoteOn, mainContent, setEditing, notes, removeNote, updateNote, setMainContent}) => {
   // render JSX
 
   return (
@@ -15,16 +15,20 @@ const NotesList = ({setEditing, notes, removeNote, updateNote, setMainContent}) 
               setMainContent={setMainContent}
               id={note._id}
               key={note._id}
-              initialTitle={note.title}
-              initialText={note.text}
+              title={note.title}
               removeNote={removeNote}
               updateNote={updateNote}
               updatedAt={note.createdAt}
               activities={note.activities ? note.activities : null }
               setEditing={setEditing}
+              mainContent={mainContent}
+              setSideBarOn={setSideBarOn}
               />
       ))}
-
+      {notes.length < 3 
+      ? <button onClick={()=>setAddNoteOn(prevState => !prevState)}  type="button" class="addFirstGroupBtn ">Add Group</button>
+      : null
+      }
     </div>
   );
 };

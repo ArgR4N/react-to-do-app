@@ -2,6 +2,7 @@
   margin: 0;
 }
 
+
 button{
   border: none;
   background-color: transparent;
@@ -53,9 +54,8 @@ button{
     margin-left: 5px;
     margin-top: -13px;
     position: absolute;
-    width: 25px;
-    height: 25px;
-    transition: 2s;
+    width: 50px;
+    height: 80px;  
     border: none;
     background-color: transparent;
     font-size: 50px;
@@ -63,6 +63,7 @@ button{
     transition: .1s;
 }
 .addNoteBtn:hover {
+
 color: rgb(0, 133, 0);
 }
 .addNoteBtn:active{
@@ -86,6 +87,32 @@ color: rgb(0, 133, 0);
 }
 
 /*NoteForm*/
+.addFirstGroupBtn{
+  min-width:85%;
+  height: 100px;
+  background-color: rgb(11, 223, 11);
+  border-radius: 5px;
+  transition: .3s;
+  color: white;
+}
+.addFirstGroupBtn:hover{
+  color: rgb(172, 172, 172);
+  border-radius: 5px;
+  background-color: rgb(0, 133, 0) ;
+}
+.removeActivity{
+  margin: 0;
+  padding: 0;
+  width: 25px;
+  height: 25px;
+}
+.removeActivity i{
+  font-size: 25px;
+}
+
+.removeActivity i:hover{
+  color: rgb(144, 0, 0);
+}
 
 .noteFormContainerOff{
   padding: 5px;
@@ -174,7 +201,7 @@ color: rgb(0, 133, 0);
   
 }
 .fa-minus-square{
-  color: red;
+  color: red ;
 }
 .deleteActivityBtn{
   font-size: 25px;
@@ -338,6 +365,9 @@ color: rgb(0, 133, 0);
 @media (max-width:700px){
 
 
+  .addActivityTooltip{
+    opacity: 0 !important ;  
+  } 
 
 /*MainNote*/
 .mainNote{
