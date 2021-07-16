@@ -6,7 +6,7 @@ const NotesList = ({setSideBarOn, setAddNoteOn, mainContent, setEditing, notes, 
 
   return (
     <div   className = " gap-2 p-1 d-flex justify-content-center flex-column align-items-center" >
-      <h2 style={{color:'white', maxWidth:300 + 'px', minWidth:300 + 'px'}}>Groups</h2>
+      <h2 className='groupsTitle' style={{color:'white', maxWidth:300 + 'px', minWidth:300 + 'px'}}>Groups</h2>
 
       {notes.map((note)=>(
           
@@ -25,7 +25,7 @@ const NotesList = ({setSideBarOn, setAddNoteOn, mainContent, setEditing, notes, 
               setSideBarOn={setSideBarOn}
               />
       ))}
-      {notes.length < 3 
+      {notes.length < 3 || window.screen.width < 700
       ? <button onClick={()=>setAddNoteOn(prevState => !prevState)}  type="button" class="addFirstGroupBtn ">Add Group</button>
       : null
       }

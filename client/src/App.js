@@ -145,6 +145,7 @@ const updateActivities = (id, title, activities) => {
                   addActivity={addActivity}
                   setAddActivity={setAddActivity} 
                   addNote={addNote} 
+                  setAddNoteOn={setAddNoteOn}
                   />
           </div>
           <div>
@@ -156,15 +157,15 @@ const updateActivities = (id, title, activities) => {
             <ReactTooltip  id="a"  className="addActivityTooltip p-1" place="right" effect="solid">
               {addNoteOn ? 'Add Group' : 'Cancel'}
             </ReactTooltip>
-            <button type="button" className="sideBarBtn " onClick={handleNoteListClick} style={{transition:"2s"}}>
-            <i style={sideBarOn ? {transition:".8s"}: {transition:".8s", transform:"rotate(180deg)"}} 
-            className="fa fa-chevron-right"></i>
+            <button onClick={window.screen.width <= 640 ? null : handleNoteListClick} type="button" className="sideBarBtn "  style={{transition:"2s"}}>
+            <i  onClick={window.screen.width <= 640 ? handleNoteListClick : null}
+            className={sideBarOn ? "sideBarBtnOpen fa fa-chevron-right" : "fa fa-chevron-right sideBarIconClose"}></i>
             </button>
           </div>
           {
             !mainContent 
             ? 
-            <h2 className={sideBarOn ? 'overflow-hidden w-100 mainNoteOff anyGroup' : 'anyGroup overflow-hidden w-100 mainNoteOn'}>Any Group Selected</h2> 
+            <h2 className={'anyGroup overflow-hidden w-100 mainNoteOn'}>Any Group Selected</h2> 
             :
             <MainNote 
             setEditing={setEditing} 

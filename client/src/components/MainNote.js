@@ -23,7 +23,7 @@ const MainNote = ( {uploadGroup, setEditing, editing, mainContent , setMainConte
     }
 
     return (
-    <div className={sideBarOn ? 'overflow-hidden w-100 mainNoteOff' : 'overflow-hidden w-100 mainNoteOn'}>
+    <div className={ 'mainNoteContainer overflow-hidden w-100 mainNoteOn'}>
         <main className='mainNote'>
             <h3 className=" card overflow-hidden w-75" >
                 <div className='d-flex  flex-wrap overflow-auto'>

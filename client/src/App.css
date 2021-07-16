@@ -14,6 +14,13 @@ button{
 }
 
 /*Note list container*/
+.sideBarBtnOpen{
+  transition: .5s;
+}
+.sideBarIconClose{
+  transition: .5s;
+  transform: rotate(180deg);
+}
 .noteListContainerOff{
     min-width: 450px;
     height: 100vh;
@@ -37,7 +44,7 @@ button{
   text-align: center;
   z-index: 10;
 }
-.noteListContainerOn .card{
+.card{
   align-items: center;
 }
 /*Note*/
@@ -364,12 +371,18 @@ color: rgb(0, 133, 0);
 
 @media (max-width:700px){
 
+  /*Side Bar In Bottom*/
 
-  .addActivityTooltip{
+
+.addActivityTooltip{
     opacity: 0 !important ;  
-  } 
+} 
 
 /*MainNote*/
+.mainNoteContainer{
+  position: absolute;
+  padding-left: 50px;
+}
 .mainNote{
   max-width: 100vw;
   padding: 30px 30px 30px 0;
@@ -384,11 +397,11 @@ body{
 }
 .mainNoteOn{
   transition: .5s;
-  min-width: 100vw;
 }
 
 .mainNoteOff{   
   transition: .5s;
+  min-width: 100vw;
 }
 
 .mainNoteWhenSmall{
@@ -436,7 +449,7 @@ body{
 }
 .addNoteBtn{
   font-size: 40px;
-
+  display: none;
 }
 .addNoteBtn:active{
   transform: none;
@@ -446,9 +459,14 @@ body{
   display: none !important;
 }
 
+.anyGroup{
+  position: absolute;
 }
 
-@media (max-width:470px){
+
+}
+
+@media (max-width:500px){
 
   *{
     margin: 0;
@@ -477,19 +495,7 @@ body{
   }
   
   
-  /*Note list container*/
-  .noteListContainerOff{
-    min-width: 80vw;
-    margin-left: -80vw;
-    transition: .8s;  
-  }
-  .noteListContainerOn{
-    margin:0;
-    min-width: 80vw;
-    height: 100vh;
-    padding: 0;
-    transition: .8s;
-  }
+
   .addNoteBtn,  .sideBarBtn{
     width: 20vw;
   }
@@ -497,7 +503,60 @@ body{
   .addNoteBtn{
     font-size: 60px;
   }
-
+  .sideBarBtn{
+    position: absolute ;
+    bottom: 110px;
+    left: calc(50vw - 25px);
+    width: 0;
+    height: 0;
+    z-index: 30;
+  }
+  .sideBarBtn i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 1s;
+    width: 50px;
+    height: 100px;
+  }
+  .sideBarIconClose{
+    transform: rotate(90deg);
+    margin-top: calc(-83vh + 40px);
+  }
+  .sideBarBtnOpen{
+    transform: rotate(-90deg);
+    margin-top: 10px;
+  }
+  body{
+    overflow: hidden;
+  }
+  /*Note list container*/
+  .noteListContainerOff{
+    margin-left:0;
+    min-width: 100vw;
+    height: 83,5vh;
+    margin-top: 96.5vh;
+    transition: 1s;
+    overflow: hidden;
+    border-radius: 150px;
+  }
+  .noteListContainerOn{
+    margin-left:0;
+    min-width: 100vw;
+    height: 83,5vh;
+    margin-top: 17vh;
+    transition: 1s;
+  }
+  .groupsTitle{
+    transition: 1s;
+  }
+  .noteListContainerOff .groupsTitle{
+    font-size: 18px;
+  }
+  .noteFormContainerOn, .noteListContainerOff{
+    z-index: 50;
+    width: 100vw;
+  }
   
 }
 

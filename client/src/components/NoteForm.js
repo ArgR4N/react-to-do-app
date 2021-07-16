@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactTooltip from "react-tooltip";
 import NewActivity from './NewActivity.js';
-const NoteForm = ({ addNote, addActivity, setAddActivity }) => {
+const NoteForm = ({setAddNoteOn, addNote, addActivity, setAddActivity }) => {
   const formatDate = date =>{
     let todayArray = date.split('/')
     let today = [];
@@ -132,10 +132,16 @@ const NoteForm = ({ addNote, addActivity, setAddActivity }) => {
       
       <h6 style={{textAlign:'center', fontSize:'13px',color:'red', margin:'10px 0 0 0'}}> {formError} </h6>
       <input
-        style={{marginBottom:'10px'}}
         className="btn btn-primary mt-3"
         type="submit"
         value="Guardar"
+      />
+     <input
+        style={window.screen.width < 700 ? {} : {display:'none'}}
+        className="btn btn-danger mt-3 mx-2"
+        type="button"
+        value="Cancelar"
+        onClick={() => setAddNoteOn(prevState => !prevState)}
       />
     </form>
   );
