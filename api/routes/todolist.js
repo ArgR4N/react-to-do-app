@@ -11,7 +11,8 @@ router.post('/todolist', (req, res, next) => {
   let activitesList = []
   req.body.activities.forEach((activity)=>{
     const newActivity = new Activity({
-      title: activity
+      title: activity[0],
+      dateFor:activity[1]
     });
     activitesList.push(newActivity)
   })

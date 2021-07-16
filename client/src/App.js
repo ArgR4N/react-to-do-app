@@ -34,6 +34,7 @@ const App = () => {
   useEffect(() => {
     axios.get('/api/todolist')
       .then(res => {
+        console.log(res.data.toDoList)
         setNotes(res.data.toDoList);
       });
   }, [mainContent]);
@@ -41,6 +42,7 @@ const App = () => {
   // CRUD functions
   // create
   const addNote = note => {
+    console.log(note)
     axios.post('/api/todolist', note)
       .then(res => {
         const newNotes = [ res.data,...notes];
@@ -168,6 +170,7 @@ const updateActivities = (id, title, activities) => {
             <h2 className={'anyGroup overflow-hidden w-100 mainNoteOn'}>Any Group Selected</h2> 
             :
             <MainNote 
+            removeNote={removeNote}
             setEditing={setEditing} 
             editing={editing} 
             sideBarOn={sideBarOn}  

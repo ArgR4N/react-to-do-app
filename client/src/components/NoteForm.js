@@ -17,9 +17,8 @@ const NoteForm = ({setAddNoteOn, addNote, addActivity, setAddActivity }) => {
   let today = formatDate(new Date().toLocaleDateString("es-AR"))
   // state hooks para el form
   const [title, setTitle] = useState('');
-  const [activity, setActivity] = useState(''); 
+  const [activity, setActivity] = useState([' ', today]); 
   const [activities, setActivities] = useState([]);
-  const [dateFor, setDateFor] = useState(today)
   const [formError, setFormError] = useState()
   // handler para el submit
   const handleSubmit = e => {
@@ -37,7 +36,7 @@ const NoteForm = ({setAddNoteOn, addNote, addActivity, setAddActivity }) => {
       setFormError('')
       setTitle(''); 
       setActivities([ ])
-      setActivity(' ')
+      setActivity([' ', today])
     }
   };
   
@@ -46,20 +45,20 @@ const NoteForm = ({setAddNoteOn, addNote, addActivity, setAddActivity }) => {
   }
   
   const checkActivityHandle = () =>{
-    
-    if(activity === ''){
+    if(activity[0] === ''){
       setFormError('The activity needs information!')
       return null;
     }else{
       setFormError('')
       setActivities([...activities, activity])
-      setActivity('')
+      setActivity( [' ', today])
       setAddActivity(!addActivity)
     }
 
   }
   
   const resetActivityHandle = () =>{
+    setActivity(['',today])
     setAddActivity(!addActivity)
   };
 
@@ -95,10 +94,8 @@ const NoteForm = ({setAddNoteOn, addNote, addActivity, setAddActivity }) => {
       <ul className="list-group my-2">
       {activities.map((e)=>(
           <NewActivity
-          dateFor={dateFor}
-          setDateFor={setDateFor}
-          e={e}
-          today={today}
+          key={activities.indexOf(e)}
+          activity={e}
           handleDeleteActivity={handleDeleteActivity}
           />
       ))}
@@ -107,15 +104,20 @@ const NoteForm = ({setAddNoteOn, addNote, addActivity, setAddActivity }) => {
 
 
       
-      <div  className="d-flex align-items-center">
+      <div  className="gap-1 d-flex align-items-center">
         <input
             style={addActivity ? {} : {display:'none'}}
             id="title"
             className="form-control w-75"
             type='text'
-            value={activity}
-            onChange={e => setActivity(e.target.value)}
+            value={activity[0]}
+            onChange={e => setActivity([e.target.value, activity[1]])}
           />
+            <input  style={addActivity ? {minWidth:'135px', maxWidth:'135px'} : {display:'none'}} className='mx-1' type="date" id="start" name="trip-start"
+            value={activity[1]}
+            onChange={e=>setActivity([activity[0], e.target.value])}
+            min="2005-15-03" max="2022-12-31">
+            </input>
 
       <button  onClick={checkActivityHandle}  type='button' style={addActivity ? {} : {display:'none'}} className="addActivityBtnContainer">
         <i className="fa fa-check-square mx-1"></i>
@@ -142,7 +144,6 @@ const NoteForm = ({setAddNoteOn, addNote, addActivity, setAddActivity }) => {
         
       /> 
      <input
-        style={window.screen.width < 700 ? {} : {display:'none'}}
         className="btn btn-danger mt-3 mx-2"
         type="button"
         value="Cancelar"

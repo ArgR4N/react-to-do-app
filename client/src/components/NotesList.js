@@ -5,15 +5,16 @@ const NotesList = ({setSideBarOn, setAddNoteOn, mainContent, setEditing, notes, 
   // render JSX
 
   return (
-    <div   className = " gap-2 p-1 d-flex justify-content-center flex-column align-items-center" >
-      <h2 className='groupsTitle' style={{color:'white', maxWidth:300 + 'px', minWidth:300 + 'px'}}>Groups</h2>
+    <div   className = "d-flex justify-content-center flex-column align-items-center" >
+      <h2 onClick={window.screen.width > 500 ? null : ()=>setSideBarOn(prevState => !prevState)} className='groupsTitle' style={{color:'white', maxWidth:300 + 'px', minWidth:300 + 'px'}}>Groups</h2>
 
+      <div style={window.screen.width > 500 ? {} : {overflow:'scroll' ,height:'80vh'}} className=' w-100 gap-2 p-1 d-flex  flex-column align-items-center'>
       {notes.map((note)=>(
               <Note 
+              key={note._id}
               createdAt={note.createdAt}
               setMainContent={setMainContent}
               id={note._id}
-              key={note._id}
               title={note.title}
               removeNote={removeNote}
               updateNote={updateNote}
@@ -24,10 +25,12 @@ const NotesList = ({setSideBarOn, setAddNoteOn, mainContent, setEditing, notes, 
               setSideBarOn={setSideBarOn}
               />
       ))}
-      {notes.length < 3 || window.screen.width < 700
-      ? <button  onClick={()=>setAddNoteOn(prevState => !prevState)}  type="button" class="addFirstGroupBtn ">Add Group</button>
+            {notes.length < 3 || window.screen.width < 700
+      ? <button  onClick={()=>setAddNoteOn(prevState => !prevState)}  type="button" className="addFirstGroupBtn ">Add Group</button>
       : null
       }
+      </div>
+
 
     </div>
   );

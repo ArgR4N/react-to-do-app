@@ -10,11 +10,8 @@ const Note = ({setSideBarOn, mainContent, setActualText, setEditing, createdAt, 
 let activitiesList = []
 if (activities) {
   activities.forEach(activity =>{
-    if (activity.title) {
-      activitiesList.push(activity.title)
-    }else{//inessesarie line
-      activitiesList.push(activity)
-    }
+    console.log(activity)
+    activitiesList.push(activity.title);
   }) 
 }
 const handleCardClick = ()=>{
@@ -38,9 +35,6 @@ const handleCardClick = ()=>{
         >{title}
         </h2>
         <br />
-        <button style={{zIndex:2}} className="btn" onClick={() => {removeNote(id);}}>
-          <i className="text-danger fa fa-trash fa-lg"></i>
-        </button>
       </div>
     </div>
   );

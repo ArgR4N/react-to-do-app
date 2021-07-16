@@ -2,7 +2,14 @@
   margin: 0;
 }
 
-
+.mainNoteContentList{
+  background-color: red;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100vh - 240px);
+  border: none;
+  background-color: transparent;
+}
 button{
   border: none;
   background-color: transparent;
@@ -96,7 +103,7 @@ color: rgb(0, 133, 0);
 /*NoteForm*/
 .addFirstGroupBtn{
   min-width:85%;
-  height: 100px;
+  min-height: 100px;
   background-color: rgb(11, 223, 11);
   border-radius: 5px;
   transition: .3s;
@@ -190,6 +197,9 @@ color: rgb(0, 133, 0);
   font-size: 35px;
   color: rgb(0, 255, 0);
 }
+
+
+
 .addActivityBtn i:hover{
 
   cursor: pointer;
@@ -525,7 +535,7 @@ body{
   }
   .sideBarBtnOpen{
     transform: rotate(-90deg);
-    margin-top: -10px;
+    margin-top: -20px;
   }
   body{
     overflow: hidden;
@@ -535,20 +545,25 @@ body{
     margin-left:0;
     min-width: 100vw;
     height: 83vh;
-    margin-top: 95.3vh;
+    margin-top: calc(100vh - 55px);
     transition: 1s;
     overflow: hidden;
     border-radius: 100px;
   }
   .noteListContainerOn{
     margin-left:0;
-    min-width: 100vw;
+    min-width: 100%;
     height: 83vh;
     margin-top: 17vh;
     transition: 1s;
+    overflow: hidden;
   }
   .groupsTitle{
     transition: 1s;
+  }
+  .noteListContainerOff .groupsTitle{
+    font-size: 40px;
+    margin-bottom: 30px;
   }
   .noteFormContainerOn, .noteListContainerOff{
     z-index: 50;
