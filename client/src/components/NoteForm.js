@@ -1,20 +1,8 @@
 import React, { useState } from 'react';
 import ReactTooltip from "react-tooltip";
 import NewActivity from './NewActivity.js';
-const NoteForm = ({setAddNoteOn, addNote, addActivity, setAddActivity }) => {
-  const formatDate = date =>{
-    let todayArray = date.split('/')
-    let today = [];
-    for (let i = todayArray.length; i > 0 ; i--) {
-      if (todayArray[i-1].split("").length < 2) {
-        today.push(`0${todayArray[i-1]}`)
-      }else{
-        today.push(todayArray[i-1]);
-      }
-    }
-    return today.join('-');
-  }
-  let today = formatDate(new Date().toLocaleDateString("es-AR"))
+const NoteForm = ({today, setAddNoteOn, addNote, addActivity, setAddActivity }) => {
+
   // state hooks para el form
   const [title, setTitle] = useState('');
   const [activity, setActivity] = useState([' ', today]); 
@@ -22,7 +10,6 @@ const NoteForm = ({setAddNoteOn, addNote, addActivity, setAddActivity }) => {
   const [formError, setFormError] = useState()
   // handler para el submit
   const handleSubmit = e => {
-
     e.preventDefault();
     if(title === ''){
       setFormError('The group need a name!')
@@ -36,6 +23,7 @@ const NoteForm = ({setAddNoteOn, addNote, addActivity, setAddActivity }) => {
       setFormError('')
       setTitle(''); 
       setActivities([ ])
+      console.log(today);
       setActivity([' ', today])
     }
   };
@@ -78,13 +66,13 @@ const NoteForm = ({setAddNoteOn, addNote, addActivity, setAddActivity }) => {
 
   // render JSX
   return (
-    <form  className="noteForm" onSubmit={handleSubmit}  >
+    <form  className=" noteForm" onSubmit={handleSubmit}  >
       <div className="form-group ">
         <h2 htmlFor="title">Create New Group</h2>
         <label htmlFor="title">Group Name</label>
         <input
           id="title"
-          className="form-control"
+          className="w form-control"
           type='text'
           value={title}
           onChange={e => setTitle(e.target.value)}
@@ -104,10 +92,10 @@ const NoteForm = ({setAddNoteOn, addNote, addActivity, setAddActivity }) => {
 
 
       
-      <div  className="gap-1 d-flex align-items-center">
+      <div  className="flex-wrap gap-1 d-flex align-items-center">
         <input
             style={addActivity ? {} : {display:'none'}}
-            id="title"
+            id="activityTitle"
             className="form-control w-75"
             type='text'
             value={activity[0]}
@@ -116,7 +104,7 @@ const NoteForm = ({setAddNoteOn, addNote, addActivity, setAddActivity }) => {
             <input  style={addActivity ? {minWidth:'135px', maxWidth:'135px'} : {display:'none'}} className='mx-1' type="date" id="start" name="trip-start"
             value={activity[1]}
             onChange={e=>setActivity([activity[0], e.target.value])}
-            min="2005-15-03" max="2022-12-31">
+            min="2005-15-03" max="2025-12-31">
             </input>
 
       <button  onClick={checkActivityHandle}  type='button' style={addActivity ? {} : {display:'none'}} className="addActivityBtnContainer">

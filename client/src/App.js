@@ -34,7 +34,6 @@ const App = () => {
   useEffect(() => {
     axios.get('/api/todolist')
       .then(res => {
-        console.log(res.data.toDoList)
         setNotes(res.data.toDoList);
       });
   }, [mainContent]);
@@ -42,7 +41,6 @@ const App = () => {
   // CRUD functions
   // create
   const addNote = note => {
-    console.log(note)
     axios.post('/api/todolist', note)
       .then(res => {
         const newNotes = [ res.data,...notes];
@@ -84,6 +82,21 @@ const updateActivities = (id, title, activities) => {
     });
 };
 */
+
+const formatDate = date =>{
+  let todayArray = date.split('/')
+  let today = [];
+  for (let i = todayArray.length; i > 0 ; i--) {
+    if (todayArray[i-1].split("").length < 2) {
+      today.push(`0${todayArray[i-1]}`)
+    }else{
+      today.push(todayArray[i-1]);
+    }
+  }
+  return today.join('-');
+}
+let today = formatDate(new Date().toLocaleDateString("es-AR"))
+
   // remove
   const removeNote = (id) => {
       axios.delete('/api/todolist/' + id)
@@ -114,16 +127,24 @@ const updateActivities = (id, title, activities) => {
   }
 
   //Update group function
-  const uploadGroup = (id, newTitle, newActivities) =>{
-    let newGroup={
-      title:newTitle,
-      activities:newActivities
+  const uploadGroup = (id, newTitle, activities, newList) =>{
+    let newGroup = {}
+    if (!newList) {
+      newGroup={
+        title:newTitle,
+        activities
+      }
+    }
+    if(newList){
+      newGroup={
+        title:newTitle,
+        activities:newList
+      }
     }
     axios.put(`api/todolist/${id}`, newGroup)
       .then(res=>{
         setNotes(prevState => prevState.map(group => group._id === id ? newGroup : group))
-        setMainContent([new Date(), newTitle, newActivities, id])
-
+        setMainContent([new Date(), newTitle, !newList ? activities : res.data.activities, id])
       })
   }
   return (
@@ -148,6 +169,7 @@ const updateActivities = (id, title, activities) => {
                   setAddActivity={setAddActivity} 
                   addNote={addNote} 
                   setAddNoteOn={setAddNoteOn}
+                  today={today}
                   />
           </div>
           <div>
@@ -177,6 +199,7 @@ const updateActivities = (id, title, activities) => {
             mainContent={mainContent} 
             setMainContent={setMainContent} 
             uploadGroup={uploadGroup}
+            today={today}
             />
           }
       </main>

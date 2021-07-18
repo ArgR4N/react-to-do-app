@@ -8,10 +8,9 @@ const Note = ({setSideBarOn, mainContent, setActualText, setEditing, createdAt, 
 
 //Acitvities list for the render
 let activitiesList = []
-if (activities) {
+if (activities.length) {
   activities.forEach(activity =>{
-    console.log(activity)
-    activitiesList.push(activity.title);
+    activitiesList.push(activity);
   }) 
 }
 const handleCardClick = ()=>{

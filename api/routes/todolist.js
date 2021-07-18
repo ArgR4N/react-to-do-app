@@ -61,9 +61,21 @@ router.get('/todolist/:id', (req, res, next) => {
 
 // PUT /notes/id
 router.put('/todolist/:id', (req, res, next) => {
+    let newActivities = []
+      req.body.activities.forEach(activity =>{
+        if(!activity._id){
+          const newActivity = new Activity({
+            title: activity[0],
+            dateFor:activity[1]
+          });
+          newActivities.push(newActivity);
+        }else{
+          newActivities.push(activity);
+        }
+      })
     const toDo = {
       title: req.body.title,
-      activities: req.body.activities,
+      activities: newActivities,
       createdAt: Date.now()
     };
     const options = {

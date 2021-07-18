@@ -17,7 +17,6 @@ const NotesList = ({setSideBarOn, setAddNoteOn, mainContent, setEditing, notes, 
               id={note._id}
               title={note.title}
               removeNote={removeNote}
-              updateNote={updateNote}
               updatedAt={note.createdAt}
               activities={note.activities ? note.activities : null }
               setEditing={setEditing}
@@ -26,7 +25,7 @@ const NotesList = ({setSideBarOn, setAddNoteOn, mainContent, setEditing, notes, 
               />
       ))}
             {notes.length < 3 || window.screen.width < 700
-      ? <button  onClick={()=>setAddNoteOn(prevState => !prevState)}  type="button" className="addFirstGroupBtn ">Add Group</button>
+      ? <button  onClick={()=>setAddNoteOn(false)}  type="button" className="addFirstGroupBtn ">Add Group</button>
       : null
       }
       </div>
