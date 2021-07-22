@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactTooltip from "react-tooltip";
 import NewActivity from './NewActivity.js';
-const NoteForm = ({today, setAddNoteOn, addNote, addActivity, setAddActivity }) => {
+const NoteForm = ({today, setAddNoteOn, addNote, addActivity, setAddActivity,userId }) => {
 
   // state hooks para el form
   const [title, setTitle] = useState('');
@@ -18,7 +18,8 @@ const NoteForm = ({today, setAddNoteOn, addNote, addActivity, setAddActivity }) 
       if(window.screen.width < 700) {
         setAddNoteOn(prevState => !prevState)
       } 
-      addNote({title, activities:activities});
+      console.log(userId)
+      addNote({title, activities, userId});
       // blanquear formulario
       setFormError('')
       setTitle(''); 
@@ -78,7 +79,7 @@ const NoteForm = ({today, setAddNoteOn, addNote, addActivity, setAddActivity }) 
           onChange={e => setTitle(e.target.value)}
         />
       </div>
-
+     
       <ul className="list-group my-2">
       {activities.map((e)=>(
           <NewActivity

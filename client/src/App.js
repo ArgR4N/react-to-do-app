@@ -9,10 +9,19 @@ import NoteForm from './components/NoteForm';
 //import Footer from './Footer';
 import './App.css'
 import MainNote from './components/MainNote';
+//Profile Side
+import ProfileSection from './components/ProfileSection';
+import LogInForm from './components/LogInForm';
+
 
 
 const App = () => {
 
+  
+  //Modal State
+  const [show, setShow] = useState(false);
+
+  //Editin State for the mainNote
   const [editing, setEditing] = useState(true)
 
 
@@ -26,16 +35,26 @@ const App = () => {
   const [addActivity, setAddActivity] = useState(false)
   
 
-  //
-
-
-
+  //profile states
+  const [profileSlideBarOn, setProfileSlideBarOn] = useState(false)
+  const [logInState, setLogInState] = useState(true)
+  const [errorState, setErrorState] = useState('')
+  const [user, setUser] = useState(false)
   // useEffect hook
   useEffect(() => {
-    axios.get('/api/todolist')
-      .then(res => {
-        setNotes(res.data.toDoList);
-      });
+    axios.get('/api/user')
+      .then(res =>{
+        if (res.data.username) {
+          setUser({id:res.data._id, username:res.data.username})
+          setShow(false)
+          axios.get(`/api/todolist/${res.data._id}`)
+          .then(res => {
+            setNotes(res.data.toDoList);
+          });
+        }else{
+          setShow(true)
+        }
+      })
   }, [mainContent]);
 
   // CRUD functions
@@ -48,40 +67,29 @@ const App = () => {
       });
   };
 
-  // edit
-  const updateNote = (id, title, text) => {
-    const updatedNote = {
-      title: title,
-      text: text
-    };
-    axios.put('/api/todolist/' + id, updatedNote)
-      .then(res => {
-        const newNotes = notes.map(note =>
-          note.id === id ? updatedNote : note
-        );
-        setNotes(newNotes);
-      });
-  };
+ //Update group function
+ const uploadGroup = (id, newTitle, activities, newList) =>{
+  let newGroup = {}
+  if (!newList) {
+    newGroup={
+      title:newTitle,
+      activities
+    }
+  }
+  if(newList){
+    newGroup={
+      title:newTitle,
+      activities:newList
+    }
+  }
+  axios.put(`api/todolist/${id}`, newGroup)
+    .then(res=>{
+      setNotes(prevState => prevState.map(group => group._id === id ? newGroup : group))
+      setMainContent([new Date(), newTitle, !newList ? activities : res.data.activities, id])
+    })
+}
     
-/*
-TODO:Edits activities in a To Do Note
 
-*/
-  /*
-const updateActivities = (id, title, activities) => {
-  const updatedNote = {
-    title: title,
-    activities: activities
-  };
-  axios.put('/api/todolist/' + id, updatedNote)
-    .then(res => {
-      const newNotes = notes.map(note =>
-        note.id === id ? updatedNote : note
-      );
-      setNotes(newNotes);
-    });
-};
-*/
 
 const formatDate = date =>{
   let todayArray = date.split('/')
@@ -108,7 +116,7 @@ let today = formatDate(new Date().toLocaleDateString("es-AR"))
     
   };
 
-  // Handle clock from open the note list bar
+  // Handle click from open the note list bar
   const handleNoteListClick = ()=>{
     setSideBarOn(prevState =>(!prevState))
     if(!addNoteOn){
@@ -126,35 +134,77 @@ let today = formatDate(new Date().toLocaleDateString("es-AR"))
     }
   }
 
-  //Update group function
-  const uploadGroup = (id, newTitle, activities, newList) =>{
-    let newGroup = {}
-    if (!newList) {
-      newGroup={
-        title:newTitle,
-        activities
-      }
+  //Porfile Section!!
+  //Open profile slide bar
+  const handleProfileClick = () =>{
+    setProfileSlideBarOn(prevState => !prevState)
+  }
+  //Login Function
+  const logInFunction = (username, password) =>{
+    if (username !== '' && password !== '') {
+      axios.post('/login', {username, password})
+        .then(res =>{
+          if (res.data.username) {
+            setUser({username:res.data.username, id:res.data._id})
+            setShow(false)
+            axios.get(`/api/todolist/${res.data._id}`)
+            .then(res => {
+              setNotes(res.data.toDoList);
+            });
+          }else{
+            setErrorState(res.data)
+          }
+        })
     }
-    if(newList){
-      newGroup={
-        title:newTitle,
-        activities:newList
-      }
+  }
+  //Register Function
+  const registerFunction = (newUsername, newPassword) =>{
+    if (newUsername !== '' && newPassword !== '') {
+      axios.post('/register', {username:newUsername, password:newPassword})
+        .then(res => {
+          setErrorState(res.data)
+          if (res.data === 'User Created!') {
+            setLogInState(true)
+          }
+        })
     }
-    axios.put(`api/todolist/${id}`, newGroup)
-      .then(res=>{
-        setNotes(prevState => prevState.map(group => group._id === id ? newGroup : group))
-        setMainContent([new Date(), newTitle, !newList ? activities : res.data.activities, id])
-      })
+  }
+  const logOut = () =>{
+    setUser(false)
+    setShow(true)
+    setMainContent(false)
   }
   return (
     <div>
+      <div style={show ? {} : {display:'none'}} className='modalClass'>
+        <LogInForm
+        setShow={setShow}
+        registerFunction={registerFunction}
+        logInFunction={logInFunction}
+        logInState={logInState}
+        errorState={errorState}
+        setLogInState={setLogInState}
+        setErrorState={setErrorState}
+        />
+      </div>
+
       <main className="d-flex overflow-hidden flex-row">
+          <div style={{overflow:'hidden'}}>
+            <ProfileSection
+            profileSlideBarOn={profileSlideBarOn}
+            setProfileSlideBarOn={setProfileSlideBarOn}
+            username={user.username}
+            setUser={setUser}
+            logOut={logOut}
+            />
+          </div>
+          <button 
+          className='profileSection' onClick={handleProfileClick}>
+            <i className="fa fa-user"></i>
+          </button>
           <div  className={sideBarOn ? "noteListContainerOff" : "noteListContainerOn" }>
                   <NotesList 
                   notes={notes} 
-                  removeNote={removeNote} 
-                  updateNote={updateNote} 
                   setMainContent={setMainContent} 
                   setEditing={setEditing}
                   mainContent={mainContent}
@@ -170,6 +220,7 @@ let today = formatDate(new Date().toLocaleDateString("es-AR"))
                   addNote={addNote} 
                   setAddNoteOn={setAddNoteOn}
                   today={today}
+                  userId={user.id}
                   />
           </div>
           <div>

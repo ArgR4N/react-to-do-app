@@ -1,9 +1,7 @@
 import React from 'react';
 import Note from './Note';
-
 const NotesList = ({setSideBarOn, setAddNoteOn, mainContent, setEditing, notes, removeNote, updateNote, setMainContent}) => {
   // render JSX
-
   return (
     <div   className = "d-flex justify-content-center flex-column align-items-center" >
       <h2 onClick={window.screen.width > 500 ? null : ()=>setSideBarOn(prevState => !prevState)} className='groupsTitle' style={{color:'white', maxWidth:300 + 'px', minWidth:300 + 'px'}}>Groups</h2>

@@ -1,15 +1,192 @@
 *{
   margin: 0;
 }
+body{
+  overflow-x: hidden;
+}
 
+.logOut{
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 25px;
+  width: 25px;
+  height: 25px;
+  color: rgb(230, 51, 51);
+}
+.logOut::after{
+  opacity: 0;
+  transition: .2s;
+  content: 'logOut';
+  font-size: 13px;
+  position: absolute;
+  left: 33px;
+  top: 11px;
+  word-wrap: normal;
+}
+.logOut:hover::after{
+  opacity: 1;
+}
+
+/*userAvatar*/
+.userAvatar{
+  width: 200px;
+  height: 200px;
+  border-radius: 250px;
+  background-color: rgba(73, 73, 73, 0.8);
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.userAvatar1{
+  position: relative;
+  background-color: rgb(47, 129, 235);
+  width: 150px;
+  height: 150px;
+  border-radius: 150px;
+  margin-top: 75px;
+}
+.userAvatar2{
+  position: absolute;
+  background-color: rgb(47, 129, 235);
+  width: 75px;
+  height: 75px;
+  margin-top: 10px;
+  border-radius: 100px;
+}
+
+/*Modal*/
+.modalClass{
+  position: absolute;
+  inset: 0;
+  background-color: rgba(73, 73, 73, 0.8);
+  z-index: 110;
+  display: flex;
+  align-items: center;
+}
+.logInForm{
+  color: white;
+  width: 35%;
+  margin: 0 auto;
+  height: 75vh;
+  overflow: auto;
+  max-height: 300px;
+  background-color: #333;
+  padding: 20px;
+  padding-bottom: 0;
+  border-radius: 10px;
+}
+/*Profile Slide Bar*/
+.profileSlideOn{
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  height: 100vh;
+  background-color: #333;
+  z-index: 100;
+  color: white;
+  transition: .3s;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.profileSlideOff{
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  visibility: hidden;
+  opacity: 0;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  height: 100vh;
+  background-color: #333;
+  z-index: 80;
+  color: white;
+  transition: .3s;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.closeProfileSlideBarBtn::after, .closeProfileSlideBarBtn::before{
+  content: '';
+  position: absolute;
+  left: 10px;
+  bottom: 0;
+  width: 5px;
+  height: 25px;
+  background-color: rgb(190, 190, 190);
+  z-index: 100;
+  transition: .3s;
+}
+.closeProfileSlideBarBtn:hover::after{
+  transform: scale(2);
+  transform: rotate(-45deg);
+}
+.closeProfileSlideBarBtn:hover::before{
+  transform: scale(2);
+  transform: rotate(45deg);
+}
+.closeProfileSlideBarBtn::after{
+  transform: rotate(45deg);
+}
+.closeProfileSlideBarBtn::before{
+  transform: rotate(-45deg);
+}
+
+.closeProfileSlideBarBtn{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 25px;
+  height: 25px;
+}
+.profileSection{
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  right: 0;
+  border-radius: 100px;
+  background-color: transparent;
+  z-index: 80;
+  transition: 1s;
+  font-size: 40px;
+  color: rgb(131, 119, 119);
+  transition: 0.2s;
+}
+.profileSection:hover:after{
+  content: 'Account';
+  position: absolute;
+  right: 42px;
+  height:  25px;
+  top: calc(25px - 5px);
+  font-size: 18px;
+  color: rgb(136, 136, 136);
+}
+.profileSection:hover{
+  transform: scale(1.2);
+  color: rgb(151, 151, 151);
+}
+.profileSection:active{
+  transform: scale(1.5);
+  transition: 1s;
+  color: white;
+}
 .mainNoteContentList{
   background-color: red;
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: calc(100vh - 300px);
   padding-bottom: 30px;
   border: none;
   background-color: transparent;
+  max-height: calc(100vh - 150px);
 }
 button{
   border: none;
@@ -25,6 +202,7 @@ button{
 .sideBarBtnOpen{
   transition: .5s;
 }
+
 .sideBarIconClose{
   transition: .5s;
   transform: rotate(180deg);
@@ -55,6 +233,7 @@ button{
 .card{
   align-items: center;
 }
+
 /*Note*/
 .noteTitle{
   width: 250px;
@@ -388,8 +567,16 @@ color: rgb(0, 133, 0);
 @media (max-width:700px){
 
   /*Side Bar In Bottom*/
+.profileSlideOff{
+  width: 100vw;
+}
+.profileSlideOn{
+  width: 100vw;
 
-
+}
+.mainNoteContentList{
+  max-height: calc(100vh - 300px);
+}
 .addActivityTooltip{
     opacity: 0 !important ;  
 } 
@@ -404,9 +591,7 @@ color: rgb(0, 133, 0);
   padding: 30px 30px 30px 0;
 }
 /*NoteForm*/
-body{
-  overflow-x: hidden;
-}
+
 
 .card h2{
   padding: 0 1rem;
@@ -478,7 +663,17 @@ body{
 .anyGroup{
   position: absolute;
 }
-
+.logInForm{
+  width: 90%;
+  margin: 5% auto;
+  height: 90%;
+  padding: 20px;
+  font-size: 30px;
+  max-height: 400px;
+  }
+  .logOut::after{
+    opacity: 1;
+  }
 }
 
 @media (max-width:500px){
