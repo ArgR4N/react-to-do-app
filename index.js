@@ -84,7 +84,10 @@ app.post('/login', (req, res, next) =>{
     }
   })(req, res ,next)
 })
-
+app.get('/logout', function(req, res){
+  req.logout();
+  res.send('Log out!')
+});
 // si el cliente NO hace una peticion a algun endpoint de la API
 // entonces usamos una ruta que devuelva un status code 404
 // 5to middleware (error 404 not found)

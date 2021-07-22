@@ -67,25 +67,29 @@ const App = () => {
       });
   };
 
- //Update group function
- const uploadGroup = (id, newTitle, activities, newList) =>{
+  //Update group function
+ const uploadGroup = (id, newTitle, activities, doneActivities,  newList, newDoneActivities) =>{
   let newGroup = {}
   if (!newList) {
     newGroup={
       title:newTitle,
-      activities
+      activities,
+      userId:user.id,
+      doneActivities: newDoneActivities
     }
   }
   if(newList){
     newGroup={
       title:newTitle,
-      activities:newList
+      activities:newList,
+      userId:user.id,
+      doneActivities:newDoneActivities
     }
   }
   axios.put(`api/todolist/${id}`, newGroup)
     .then(res=>{
       setNotes(prevState => prevState.map(group => group._id === id ? newGroup : group))
-      setMainContent([new Date(), newTitle, !newList ? activities : res.data.activities, id])
+      setMainContent([new Date(), newTitle, !newList ? activities : res.data.activities, id, !newList ? doneActivities : res.data.doneActivities])
     })
 }
     
@@ -170,9 +174,12 @@ let today = formatDate(new Date().toLocaleDateString("es-AR"))
     }
   }
   const logOut = () =>{
-    setUser(false)
-    setShow(true)
-    setMainContent(false)
+    axios.get('/logout')
+      .then(() =>{
+        setUser(false)
+        setShow(true)
+        setMainContent(false)
+      })
   }
   return (
     <div>
@@ -210,6 +217,7 @@ let today = formatDate(new Date().toLocaleDateString("es-AR"))
                   mainContent={mainContent}
                   setAddNoteOn={setAddNoteOn} 
                   setSideBarOn={setSideBarOn}
+                  username={user.username}
                   />  
           </div>
           <div  

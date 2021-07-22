@@ -1,4 +1,4 @@
-const Note = ({setSideBarOn, mainContent, setActualText, setEditing, createdAt, activities, id, title,  removeNote, updateNote, updatedAt, setMainContent}) => {
+const Note = ({setSideBarOn, mainContent, setActualText, setEditing, createdAt, activities, id, title,  removeNote, updateNote, updatedAt, setMainContent, doneActivities}) => {
 
 
 //TODO:Put edit function in the mainNote
@@ -13,8 +13,9 @@ if (activities.length) {
     activitiesList.push(activity);
   }) 
 }
+console.log(doneActivities)
 const handleCardClick = ()=>{
-  let newMainContent = [createdAt, title, activitiesList, id]
+  let newMainContent = [createdAt, title, activitiesList, id, doneActivities]
   if (newMainContent[3] !== mainContent[3]) {
     setMainContent(newMainContent)
     if (window.screen.width < 700) {

@@ -1,10 +1,10 @@
-const Activity = ({deleteActivity, mainContent, activity, today}) =>{
+const Activity = ({deleteActivity, mainContent, activity, today, completeActivity}) =>{
     const {title, _id, dateFor} = activity
     const handleDeleteActivity = () =>{
         deleteActivity(_id)
     }
     const handleCompleteActivity = () =>{
-        console.log('in dev');
+        completeActivity(_id)
     }
     const dateFormatFunction = (initailDate) =>{
         let separateDate = initailDate.split('-');

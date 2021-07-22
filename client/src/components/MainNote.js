@@ -1,29 +1,30 @@
 import { main } from '@popperjs/core';
 import React, { useState, useEffect } from 'react';
 import Activity from './Activity.js'
-
+import DoneActivity from './DoneActivity.js';
 const MainNote = ( {removeNote, uploadGroup, setEditing, editing, mainContent , setMainContent, today} )=>{
     const [newText, setNewText] = useState(mainContent[1]);
     const [newActivity, setNewActivity] = useState({editing:false, text:'', dateFor:today});
     const [formError, setFormError] = useState()
-
+    const [doneAcivitiesShow, setDoneAcivitiesShow] = useState(false)
     useEffect(() => {
         setNewText(mainContent[1])
         setNewActivity({editing:false, text:'', dateFor:today})
+        console.log(mainContent[4])
     }, [mainContent, today])
 
     function editingToggle(){
         setEditing(prevState => !prevState)
         setNewText(mainContent[1])
     }
-    function handleUpload(newList){
-        uploadGroup(mainContent[3], newText, mainContent[2], newList)
+    function handleUpload(newList, newDoneActivities){
+        uploadGroup(mainContent[3], newText, mainContent[2], mainContent[4], newList, newDoneActivities)
 
     }
 
     function handleEditing(){
         editingToggle()
-        handleUpload(false)
+        handleUpload(false, false)
     }
 
 
@@ -35,7 +36,7 @@ const MainNote = ( {removeNote, uploadGroup, setEditing, editing, mainContent , 
             }else{
                 let activity = [newActivity.text, newActivity.dateFor]
                 let newList = mainContent[2].concat([activity])
-                handleUpload(newList)
+                handleUpload(newList, mainContent[4])
                 setFormError('')
                 setNewActivity(prevState => ({...prevState, editing: false}))
             }
@@ -54,7 +55,7 @@ const MainNote = ( {removeNote, uploadGroup, setEditing, editing, mainContent , 
         }
     }
     function handleDelete(){
-        removeNote(mainContent[3])
+        removeNote(mainContent[3], mainContent[4])
     }
     const deleteActivity = (_id) =>{
         let newList =[]
@@ -65,13 +66,35 @@ const MainNote = ( {removeNote, uploadGroup, setEditing, editing, mainContent , 
                 newList.push(activity)
             }
         })
-        handleUpload(newList)
+        handleUpload(newList, mainContent[4])
+    }
+    const completeActivity = (_id) =>{
+        let newDoneActivities = [...mainContent[4]];
+        mainContent[2].forEach(activity =>{
+            if (activity._id === _id) {
+                newDoneActivities.push(activity)
+            }else{
+                return null;
+            }
+        })
+        let newList =[]
+        mainContent[2].forEach(activity =>{
+            if (activity._id === _id) {
+                return null;
+            }else{
+                newList.push(activity)
+            }
+        })
+        handleUpload(newList, newDoneActivities)
+    }
+    const handleDoneActivitiesShow = ()=>{
+        setDoneAcivitiesShow(prevState => !prevState)
     }
 
     return (
     <div className={  ' mainNoteContainer overflow-hidden w-100 mainNoteOn'}>
         <main className='mainNote'>
-            <div className="m-2 card overflow-hidden w-100" >
+            <div className="mt-3 card overflow-hidden w-100" >
                 <div  style={{fontSize:'25px'}} className='w-100 d-flex  flex-wrap '>
                     <input
                     style={editing ? {display:'none'} : {width:'50%'}}
@@ -97,27 +120,55 @@ const MainNote = ( {removeNote, uploadGroup, setEditing, editing, mainContent , 
                 Created or Edited at: {new Date(mainContent[0]).toLocaleDateString("es-AR")} 
                 </h6>
             </div>
-            <div className=' mainNoteContent'>
+            <div style={{fontSize:'13px'}} className='my-1 container d-flex justify-content-center align-items-center'>
+                <input onClick={handleDoneActivitiesShow} type='checkbox' className='col-1'></ input>
+                <label className='col-11'>Show done Activities?</label>
+            </div>
+            <div className=' mainNoteContent' >
+            {mainContent[4] && doneAcivitiesShow && mainContent[4].length > 0
+                ?                 
+                <ul className=" mainNoteContentList list-group">
+                    <h2>Done Activities</h2> 
+                    {mainContent[4].map(activity=>(
+                            <DoneActivity
+                            today={today}
+                            key={activity._id}
+                            deleteActivity={deleteActivity}
+                            mainContent={mainContent}
+                            completeActivity={completeActivity}
+                            activity={activity}
+                            />
+                    ))} 
+                </ul> 
+                : 
+                <ul style={doneAcivitiesShow ? {} : {display:'none'}} className='list-group overflow-hidden '>
+                    <div className='d-flex justify-content-center align-items-center my-3'>
+                        <h5 style={{textAlign:'center', margin:'0', color:'gray'}}>Any Done Acvtivity</h5>
+                    </div>
+                </ul>
+                }
                 {mainContent[2] && mainContent[2].length !== 0 
                 ?                 
-                <ul className=" mainNoteContentList list-group"> 
+                <ul className=" mainNoteContentList list-group">
+                    <h2>Activities</h2> 
                     {mainContent[2].map(activity=>(
                             <Activity
                             today={today}
                             key={activity._id}
                             deleteActivity={deleteActivity}
                             mainContent={mainContent}
+                            completeActivity={completeActivity}
                             activity={activity}
                             />
                     ))} 
-                <div  className='d-flex justify-content-center align-items-center'>
+                <div  className=' d-flex justify-content-center align-items-center'>
                     <h5 style={newActivity.editing ? {display:'none'} : {textAlign:'center', margin:'0', color:'gray'}}>Add Activity</h5>
                     <button onClick={handleAddActivity} style={{ alignItems:'center'}} className='addActivityBtn alig-items-center d-flex justify-content-center'>
                         <i style={newActivity.editing ? {display:'none'} : {}} className='fa fa-plus-square'></i>
                     </button>
                 </div>
  
-                <form onSubmit={e => e.preventDefault()} style={newActivity.editing ? {marginTop:'-35px', display:'flex', flexWrap:'wrap', gap:'5px', justifyContent:'start'} : {display:'none'} }>
+                <form  onSubmit={e => e.preventDefault()} style={newActivity.editing ? {marginTop:'-35px', display:'flex', flexWrap:'wrap', gap:'5px', justifyContent:'start'} : {display:'none'} }>
                 <input value={newActivity.text} type='text'
                         onChange={(e) => setNewActivity(prevState =>({...prevState, text:e.target.value}))}></input>
                         <input value={newActivity.dateFor}  type='date'
@@ -138,7 +189,7 @@ const MainNote = ( {removeNote, uploadGroup, setEditing, editing, mainContent , 
                 </form>
                 </ul> 
                 : 
-                <ul className='mainNoteContentList list-group overflow-hidden'>
+                <ul className=' mainNoteContentList list-group overflow-hidden'>
                                     <div style={newActivity.editing ? {display:'none'} : {}} className='d-flex justify-content-center align-items-center'>
                     <h5 style={newActivity.editing ? {display:'none'} : {textAlign:'center', margin:'0', color:'gray'}}>Any Acvtivity</h5>
                     <button onClick={handleAddActivity} style={{ alignItems:'center'}} className='addActivityBtn alig-items-center d-flex justify-content-center'>
@@ -169,7 +220,8 @@ const MainNote = ( {removeNote, uploadGroup, setEditing, editing, mainContent , 
                 </ul>
                 
                 }
-
+                
+            
             </div>
             <div>
             </div>

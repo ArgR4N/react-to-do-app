@@ -80,7 +80,7 @@ body{
 }
 /*Profile Slide Bar*/
 .profileSlideOn{
-  overflow: hidden;
+  margin: 0;
   position: absolute;
   right: 0;
   display: flex;
@@ -97,7 +97,6 @@ body{
   gap: 1rem;
 }
 .profileSlideOff{
-  overflow: hidden;
   position: absolute;
   right: 0;
   visibility: hidden;
@@ -181,8 +180,6 @@ body{
 }
 .mainNoteContentList{
   background-color: red;
-  overflow-y: auto;
-  overflow-x: hidden;
   padding-bottom: 30px;
   border: none;
   background-color: transparent;
@@ -388,7 +385,9 @@ color: rgb(0, 133, 0);
 .addActivityBtnContainer i{
   font-size: 25px;
 }
-
+.body{
+  overflow: hidden;
+}
 .addActivityBtnContainer i:hover{
   cursor: pointer;
   filter: sepia(50%);
@@ -450,6 +449,9 @@ color: rgb(0, 133, 0);
 
 .mainNoteContent{
   width: 100%;
+  max-height: 70vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 
@@ -561,7 +563,9 @@ color: rgb(0, 133, 0);
 .mainNote{
   max-width: 100%;
 }
-
+.logInError{
+  text-align: center;
+}
 }
 
 @media (max-width:700px){
@@ -575,12 +579,14 @@ color: rgb(0, 133, 0);
 
 }
 .mainNoteContentList{
-  max-height: calc(100vh - 300px);
+  max-height: calc(100vh - 200px);
 }
 .addActivityTooltip{
     opacity: 0 !important ;  
 } 
-
+.logInError{
+  font-size: 15px;
+}
 /*MainNote*/
 .mainNoteContainer{
   position: absolute;
@@ -677,7 +683,9 @@ color: rgb(0, 133, 0);
 }
 
 @media (max-width:500px){
-
+.mainNoteContent{
+  max-height: 55vh;
+}
   *{
     margin: 0;
     padding: 0;
@@ -763,8 +771,9 @@ color: rgb(0, 133, 0);
     transition: 1s;
   }
   .noteListContainerOff .groupsTitle{
-    font-size: 40px;
-    margin-bottom: 70px;
+    font-size: 30px;
+    margin-top: 30px;
+    margin-bottom: 60px;
   }
   .noteFormContainerOn, .noteListContainerOff{
     z-index: 50;

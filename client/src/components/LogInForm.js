@@ -62,7 +62,7 @@ const LogInForm = ({setShow, logInFunction, registerFunction, logInState, errorS
             type="submit" className=" btn btn-primary"> 
                 {logInState ? 'LogIn' : 'Create new Account'} 
             </button>
-            <p className='my-1'> {errorState} </p>
+            <p className='my-1 logInError'> {errorState} </p>
         </form>
     </div>
     )

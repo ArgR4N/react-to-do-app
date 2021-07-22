@@ -1,11 +1,14 @@
 import React from 'react';
 import Note from './Note';
-const NotesList = ({setSideBarOn, setAddNoteOn, mainContent, setEditing, notes, removeNote, updateNote, setMainContent}) => {
+const NotesList = ({setSideBarOn, setAddNoteOn, mainContent, setEditing, notes, removeNote, updateNote, setMainContent, username}) => {
   // render JSX
+  console.log(notes)
   return (
     <div   className = "d-flex justify-content-center flex-column align-items-center" >
-      <h2 onClick={window.screen.width > 500 ? null : ()=>setSideBarOn(prevState => !prevState)} className='groupsTitle' style={{color:'white', maxWidth:300 + 'px', minWidth:300 + 'px'}}>Groups</h2>
-
+      <h2 onClick={window.screen.width > 500 ? null : ()=>setSideBarOn(prevState => !prevState)} className='groupsTitle' style={{color:'white', maxWidth:300 + 'px', minWidth:300 + 'px'}}>
+        {`${username}´s Groups`}
+      </h2>
+   
       <div style={window.screen.width > 500 ? {} : {overflow:'scroll' ,height:'80vh'}} className=' w-100 gap-2 p-1 d-flex  flex-column align-items-center'>
       {notes.map((note)=>(
               <Note 
@@ -19,6 +22,7 @@ const NotesList = ({setSideBarOn, setAddNoteOn, mainContent, setEditing, notes, 
               activities={note.activities ? note.activities : null }
               setEditing={setEditing}
               mainContent={mainContent}
+              doneActivities={note.doneActivities}
               setSideBarOn={setSideBarOn}
               />
       ))}

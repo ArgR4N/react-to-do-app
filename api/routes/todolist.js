@@ -9,7 +9,6 @@ const bcrypt = require('bcrypt')
 
 // POST /notes
 router.post('/todolist', (req, res, next) => {
-  console.log(req.body)
   let activitesList = []
   req.body.activities.forEach((activity)=>{
     const newActivity = new Activity({
@@ -21,6 +20,7 @@ router.post('/todolist', (req, res, next) => {
   const toDo = new ToDo({
     title: req.body.title,
     activities: activitesList,
+    doneActivities:[],
     userId:req.body.userId
   });
   toDo.save((err, toDo) =>{
@@ -31,7 +31,7 @@ router.post('/todolist', (req, res, next) => {
 // GET /notes
 router.get('/todolist', (req, res, next) => {
     ToDo.find()                  // todos los docs de notes
-      .select('_id title activities createdAt')  // como SELECT en SQL
+      .select('_id title activities createdAt doneActivities')  // como SELECT en SQL
       .sort('-createdAt')        // ordena por modificacion descendente
       .exec((err, toDoList) => {
         if (err) return next(err);
@@ -40,7 +40,8 @@ router.get('/todolist', (req, res, next) => {
           title: toDo.title,
           activities: toDo.activities,
           createdAt: toDo.createdAt,
-          _id: toDo._id
+          _id: toDo._id,
+          doneActivities: toDo.doneActivities
         }));
         res.status(200).json({
           count: toDoList.length,   // la cantidad de elementos en notes
@@ -52,9 +53,8 @@ router.get('/todolist', (req, res, next) => {
 // GET /notes/id
 router.get('/todolist/:id', (req, res, next) => {
   const { id } = req.params
-  console.log(id)
   ToDo.find({userId: id})
-    .select('_id title activities createdAt')  // como SELECT en SQL
+    .select('_id title activities createdAt doneActivities')  // como SELECT en SQL
     .sort('-createdAt')        // ordena por modificacion descendente
     .exec((err, toDoList) => {
       if (err) return next(err);
@@ -63,7 +63,9 @@ router.get('/todolist/:id', (req, res, next) => {
         title: toDo.title,
         activities: toDo.activities,
         createdAt: toDo.createdAt,
-        _id: toDo._id
+        _id: toDo._id,
+        doneActivities: toDo.doneActivities,
+        a:'a'
       }));
       res.status(200).json({
         count: toDoList.length,   // la cantidad de elementos en notes
@@ -89,7 +91,9 @@ router.put('/todolist/:id', (req, res, next) => {
     const toDo = {
       title: req.body.title,
       activities: newActivities,
-      createdAt: Date.now()
+      createdAt: Date.now(),
+      userId:req.body.userId,
+      doneActivities:req.body.doneActivities
     };
     const options = {
       new: true,
