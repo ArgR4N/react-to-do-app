@@ -17,9 +17,3 @@
     }
   ]
 }
-{
-    "routes": [
-      { "src": "/api/(.*)", "dest": "http://localhost:4000/api/$1" }
-    ]
-}
-  
