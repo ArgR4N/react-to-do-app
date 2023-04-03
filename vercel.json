@@ -5,7 +5,5 @@
     { "src": "/api/(.*)/(.*)", "dest": "/api/$1/$2" },
     { "src": "/(.*)", "dest": "/$1" }
   ],
-  "build": {
-    "command":"npm start"
-  } 
+  "buildCommand":"npm start"
 }
