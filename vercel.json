@@ -5,5 +5,5 @@
     { "src": "/api/(.*)/(.*)", "dest": "/api/$1/$2" },
     { "src": "/(.*)", "dest": "/$1" }
   ],
-  "buildCommand":"npm start"
+  "buildCommand":"vercel build; npm start"
 }
