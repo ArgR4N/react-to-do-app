@@ -4,5 +4,8 @@
     { "src": "/api/(.*)", "dest": "/api/$1" },
     { "src": "/api/(.*)/(.*)", "dest": "/api/$1/$2" },
     { "src": "/(.*)", "dest": "/$1" }
-  ]
+  ],
+  "build": {
+    "command":"node index.js"
+  } 
 }
