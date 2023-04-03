@@ -6,6 +6,6 @@
     { "src": "/(.*)", "dest": "/$1" }
   ],
   "build": {
-    "command":"node index.js"
+    "command":"npm start"
   } 
 }
